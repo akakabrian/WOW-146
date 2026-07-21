@@ -21,7 +21,7 @@ import FormalConjectures.WrittenOnTheWallII.GraphConjecture146
 # Radius of a graph square
 
 For a finite connected graph, the radius of the square graph is the ceiling
-of half the original radius.  The proof first identifies vertex eccentricities
+of half the original radius. The proof first identifies vertex eccentricities
 by applying the graph-square distance formula to finite witnesses attaining
 the relevant maxima, then applies the result to centers of the two graphs.
 -/
@@ -31,7 +31,7 @@ namespace SimpleGraph
 open Classical
 open WrittenOnTheWallII.GraphConjecture146
 
-variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
+variable {α : Type*} [Fintype α] [Nontrivial α]
 variable {G : SimpleGraph α}
 
 private lemma eccent_ne_top_of_connected (hG : G.Connected) (u : α) :
@@ -107,23 +107,18 @@ variable (hG : G.Connected) (u v : α)
 
 example (h : G.dist u v = 1) : (graphSquare G).dist u v = 1 := by
   rw [graphSquare_dist hG, h]
-  norm_num
 
 example (h : G.dist u v = 2) : (graphSquare G).dist u v = 1 := by
   rw [graphSquare_dist hG, h]
-  norm_num
 
 example (h : G.dist u v = 3) : (graphSquare G).dist u v = 2 := by
   rw [graphSquare_dist hG, h]
-  norm_num
 
 example (h : G.dist u v = 4) : (graphSquare G).dist u v = 2 := by
   rw [graphSquare_dist hG, h]
-  norm_num
 
 example (h : G.dist u v = 5) : (graphSquare G).dist u v = 3 := by
   rw [graphSquare_dist hG, h]
-  norm_num
 
 end Regression
 
