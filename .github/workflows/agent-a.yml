@@ -34,16 +34,18 @@ jobs:
       - name: Download Mathlib cache
         run: lake exe cache get
 
-      - name: Check graph-square metric module
+      - name: Check graph-square metric and radius modules
         id: metric
         shell: bash
         run: |
           set +e
           {
-            echo '$ lake build WOW146.GraphSquareMetric'
-            lake build WOW146.GraphSquareMetric
+            echo '$ lake build WOW146.GraphSquareRadius'
+            lake build WOW146.GraphSquareRadius
             echo '$ lake env lean -DwarningAsError=true WOW146/GraphSquareMetric.lean'
             lake env lean -DwarningAsError=true WOW146/GraphSquareMetric.lean
+            echo '$ lake env lean -DwarningAsError=true WOW146/GraphSquareRadius.lean'
+            lake env lean -DwarningAsError=true WOW146/GraphSquareRadius.lean
           } > agent-a-ci.log 2>&1
           status=$?
           printf '\nEXIT_STATUS=%s\n' "$status" >> agent-a-ci.log
