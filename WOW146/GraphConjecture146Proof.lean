@@ -20,10 +20,10 @@ import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
 /-!
 # Written on the Wall II — Conjecture 146
 
-This module is the standalone proof harness.  It currently records the exact
-upstream declaration and the reusable API available at the pinned dependency.
-The research theorem will be added only with a kernel-checked, warning-free
-proof of the unchanged statement.
+This module is the standalone proof harness. It records the exact upstream
+declaration and the reusable API available at the pinned dependency. The
+research theorem will be added only with a kernel-checked, warning-free proof
+of the unchanged statement.
 -/
 
 open Classical
@@ -54,9 +54,7 @@ namespace WOW146
 #check SimpleGraph.exists_walk_of_dist_ne_zero
 #check SimpleGraph.dist_le
 #check SimpleGraph.dist_eq_one_iff_adj
-#check SimpleGraph.Walk.isPath_iff_dist_eq_length
 #check SimpleGraph.Walk.IsPath
 #check SimpleGraph.Walk.support
-#check SimpleGraph.Walk.support_toFinset_card
 
 end WOW146
