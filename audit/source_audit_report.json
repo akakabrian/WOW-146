@@ -1,0 +1,25 @@
+{
+  "entry": "WOW146.lean",
+  "findings": [],
+  "forbidden_tokens": [
+    "sorry",
+    "admit",
+    "native_decide",
+    "axiom"
+  ],
+  "note": "External Formal Conjectures imports may contain unrelated open problems. Kernel dependency is checked separately with #print axioms on WOW146.conjecture146.",
+  "reachable_local_file_count": 10,
+  "reachable_local_files": [
+    "WOW146/Exceptional.lean",
+    "WOW146/ExceptionalTheorem.lean",
+    "WOW146/GlobalBounds.lean",
+    "WOW146/GraphConjecture146Proof.lean",
+    "WOW146/GraphSquareMetric.lean",
+    "WOW146/GraphSquareRadius.lean",
+    "WOW146/Metric.lean",
+    "WOW146/Reduction.lean",
+    "WOW146/Regression.lean",
+    "WOW146.lean"
+  ],
+  "result": "PASS"
+}
