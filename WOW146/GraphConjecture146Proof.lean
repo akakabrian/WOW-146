@@ -21,7 +21,7 @@ import WOW146.ExceptionalTheorem
 # Written on the Wall II — Conjecture 146
 
 This module proves a theorem with the exact hypotheses and conclusion of the
-current Formal Conjectures declaration.  The proof combines the general
+current Formal Conjectures declaration. The proof combines the general
 arithmetic reduction with the kernel-checked exceptional induced-tree theorem.
 -/
 
@@ -39,6 +39,13 @@ theorem conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj]
     2 * eccSet G (maxEccentricityVertices G : Set α) ≤
       largestInducedTreeSize G * graphSquareRadius G := by
   exact conjecture146_of_exceptional_case G h hrad (exceptional_case G h)
+
+/-- Compilation guard that restates the upstream declaration verbatim. -/
+example (G : SimpleGraph α) [DecidableRel G.Adj]
+    (h : G.Connected) (hrad : 0 < graphSquareRadius G) :
+    2 * eccSet G (maxEccentricityVertices G : Set α) ≤
+      largestInducedTreeSize G * graphSquareRadius G :=
+  WOW146.conjecture146 G h hrad
 
 #check WrittenOnTheWallII.GraphConjecture146.conjecture146
 #check WOW146.conjecture146
