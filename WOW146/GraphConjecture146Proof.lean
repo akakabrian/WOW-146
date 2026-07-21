@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import WOW146.GraphSquareMetric
+import WOW146.GraphSquareRadius
 import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
 
 /-!
@@ -34,6 +34,7 @@ namespace WOW146
 #check WrittenOnTheWallII.GraphConjecture146.conjecture146
 #check WrittenOnTheWallII.GraphConjecture146.graphSquareRadius
 #check SimpleGraph.graphSquare_dist
+#check SimpleGraph.graphSquareRadius_eq
 
 -- Reusable, sorry-free infrastructure from the completed WOWII 142 proof.
 #check SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice
