@@ -18,6 +18,22 @@ SOURCE_MODULES = [
     "Exceptional", "ExceptionalTheorem", "Reduction",
     "GraphConjecture146Proof", "Regression",
 ]
+COPYRIGHT = '''/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+'''
 
 
 def moduleize(text: str) -> str:
@@ -50,7 +66,6 @@ def common_transform(text: str) -> str:
     for module in SOURCE_MODULES:
         text = text.replace(f"import WOW146.{module}", f"import {PREFIX}.{module}")
     text = text.replace("WOW146", "WrittenOnTheWallII.GraphConjecture146.Proof")
-    # Module files cannot contain `#print axioms`; keep all audit commands in Audit.lean.
     text = re.sub(r"(?m)^#print axioms .*\n", "", text)
     text = re.sub(r"(?m)^#check .*\n", "", text)
     return text
@@ -156,8 +171,16 @@ def patch_target(target: Path) -> None:
 
 
 def write_audit(destination: Path) -> None:
-    destination.write_text(f'''import FormalConjectures.WrittenOnTheWallII.GraphConjecture146
+    destination.write_text(COPYRIGHT + f'''
+import FormalConjectures.WrittenOnTheWallII.GraphConjecture146
 import {PREFIX}.Regression
+
+/-!
+# Axiom audit for Written on the Wall II Conjecture 146
+
+Checks the exact upstream theorem, its raw proof theorem, the exceptional lemma,
+and the explicit regression witness.
+-/
 
 #check WrittenOnTheWallII.GraphConjecture146.conjecture146
 #check WrittenOnTheWallII.GraphConjecture146.Proof.conjecture146
