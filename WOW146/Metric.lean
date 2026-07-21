@@ -21,7 +21,7 @@ import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
 # Metric lemmas for WOWII Conjecture 146
 
 The square-graph radius-one case supplies a vertex at original distance at
-most two from every vertex.  This module also packages the short-geodesic and
+most two from every vertex. This module also packages the short-geodesic and
 short-walk facts used by the exceptional induced-tree construction.
 -/
 
@@ -30,6 +30,8 @@ open SimpleGraph
 open WrittenOnTheWallII.GraphConjecture146
 
 namespace WOW146
+
+set_option linter.unusedSectionVars false
 
 variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
 
@@ -95,7 +97,8 @@ lemma exists_middle_of_dist_eq_two (G : SimpleGraph α) (hG : G.Connected)
   · have h := p.adj_getVert_succ (show 0 < p.length by omega)
     simpa [w] using h
   · have h := p.adj_getVert_succ (show 1 < p.length by omega)
-    simpa [w, hlen] using h
+    have hlast : p.getVert 2 = v := by simpa [hlen] using p.getVert_length
+    simpa [w, hlast] using h
 
 /-- A pair at distance three has a three-edge geodesic with two internal vertices. -/
 lemma exists_two_middle_of_dist_eq_three (G : SimpleGraph α) (hG : G.Connected)
@@ -111,7 +114,8 @@ lemma exists_two_middle_of_dist_eq_three (G : SimpleGraph α) (hG : G.Connected)
   · have h := p.adj_getVert_succ (show 1 < p.length by omega)
     simpa [b, a] using h
   · have h := p.adj_getVert_succ (show 2 < p.length by omega)
-    simpa [a, hlen] using h
+    have hlast : p.getVert 3 = v := by simpa [hlen] using p.getVert_length
+    simpa [a, hlast] using h
 
 lemma dist_le_two_of_adj_adj (G : SimpleGraph α) {a b c : α}
     (hab : G.Adj a b) (hbc : G.Adj b c) : G.dist a c ≤ 2 := by
