@@ -15,12 +15,16 @@ IMPORT = re.compile(r"^\s*import\s+([A-Za-z0-9_.]+)\s*$", re.MULTILINE)
 
 
 def strip_comments_and_strings(text: str) -> str:
-    """Remove nested Lean comments, line comments, chars, and strings."""
+    """Remove nested Lean comments, line comments, and string literals.
+
+    Apostrophes are deliberately retained because Lean commonly permits them in
+    identifiers such as `h'`; treating every apostrophe as a character literal
+    would corrupt ordinary source code.
+    """
     output: list[str] = []
     i = 0
     block_depth = 0
     in_string = False
-    in_char = False
     while i < len(text):
         pair = text[i:i + 2]
         char = text[i]
@@ -43,15 +47,6 @@ def strip_comments_and_strings(text: str) -> str:
             else:
                 i += 1
             continue
-        if in_char:
-            if char == "\\":
-                i += 2
-            elif char == "'":
-                in_char = False
-                i += 1
-            else:
-                i += 1
-            continue
         if pair == "/-":
             block_depth = 1
             i += 2
@@ -62,14 +57,11 @@ def strip_comments_and_strings(text: str) -> str:
         elif char == '"':
             in_string = True
             i += 1
-        elif char == "'":
-            in_char = True
-            i += 1
         else:
             output.append(char)
             i += 1
-    if block_depth or in_string or in_char:
-        raise ValueError("unterminated comment or literal while scanning Lean source")
+    if block_depth or in_string:
+        raise ValueError("unterminated comment or string while scanning Lean source")
     return "".join(output)
 
 
@@ -85,8 +77,7 @@ def reachable_local_files(entry: Path) -> list[Path]:
     pending = [entry]
     visited: set[Path] = set()
     while pending:
-        path = pending.pop()
-        path = path.resolve()
+        path = pending.pop().resolve()
         if path in visited:
             continue
         if not path.exists():
