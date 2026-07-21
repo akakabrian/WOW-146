@@ -5,10 +5,17 @@ on:
     branches:
       - main
       - 'proof/**'
+    paths-ignore:
+      - lean-ci.log
   pull_request:
     branches:
       - main
+      - proof/wowii-146
   workflow_dispatch:
+
+concurrency:
+  group: wow146-${{ github.event.pull_request.number || github.ref_name }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -22,19 +29,67 @@ jobs:
 
       - name: Install elan
         run: |
-          set -o pipefail
-          curl -sSfL https://github.com/leanprover/elan/releases/download/v4.1.2/elan-x86_64-unknown-linux-gnu.tar.gz | tar xz
-          ./elan-init -y --default-toolchain none
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
       - name: Resolve dependencies
         run: lake update
 
+      - name: Restore Formal Conjectures build cache
+        uses: actions/cache@v4
+        with:
+          path: .lake/packages/formal_conjectures/.lake/build
+          key: wow146-formal-build-${{ hashFiles('lean-toolchain', 'lakefile.toml') }}
+
       - name: Download Mathlib cache
         run: lake exe cache get
 
-      - name: Compile root proof target with warnings as errors
-        run: lake env lean -DwarningAsError=true WOW146.lean
+      - name: Verify and capture compiler log
+        id: verify
+        shell: bash
+        run: |
+          set +e
+          {
+            echo '$ lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146 FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof'
+            lake build \
+              FormalConjectures.WrittenOnTheWallII.GraphConjecture146 \
+              FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+            base_status=$?
+            if [ "$base_status" -eq 0 ]; then
+              echo '$ lake --wfail build WOW146.GraphConjecture146Proof'
+              lake --wfail build WOW146.GraphConjecture146Proof
+              proof_status=$?
+            else
+              proof_status=$base_status
+            fi
+            if [ "$proof_status" -eq 0 ]; then
+              echo '$ lake env lean -DwarningAsError=true WOW146.lean'
+              lake env lean -DwarningAsError=true WOW146.lean
+              root_status=$?
+            else
+              root_status=$proof_status
+            fi
+            if [ "$root_status" -eq 0 ]; then
+              echo '$ lake --wfail build'
+              lake --wfail build
+              final_status=$?
+            else
+              final_status=$root_status
+            fi
+            printf '\nEXIT_STATUS=%s\n' "$final_status"
+            exit "$final_status"
+          } > lean-ci.log 2>&1
+          status=$?
+          echo "exit_status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
 
-      - name: Build project
-        run: lake --wfail build
+      - name: Upload compiler log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-ci-log-${{ github.run_id }}
+          path: lean-ci.log
+
+      - name: Fail job when Lean failed
+        if: steps.verify.outputs.exit_status != '0'
+        run: exit 1

@@ -14,47 +14,68 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import FormalConjectures.WrittenOnTheWallII.GraphConjecture146
-import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+import WOW146.ExceptionalTheorem
 
 /-!
 # Written on the Wall II — Conjecture 146
 
-This module is the standalone proof harness. It records the exact upstream
-declaration and the reusable API available at the pinned dependency. The
-research theorem will be added only with a kernel-checked, warning-free proof
-of the unchanged statement.
+This module proves the exact current Formal Conjectures statement. The global
+reduction uses the diameter/periphery infrastructure developed for the formal
+proof of WOWII 142. The only graph-theoretic residue is the sharp six-vertex
+induced-tree lemma in the radius-one square-graph case.
 -/
 
 open Classical
 open SimpleGraph
+open WrittenOnTheWallII.GraphConjecture146
 
 namespace WOW146
 
-#check WrittenOnTheWallII.GraphConjecture146.conjecture146
-#check WrittenOnTheWallII.GraphConjecture146.graphSquareRadius
-#check graphSquare
-#check eccSet
-#check maxEccentricityVertices
-#check largestInducedTreeSize
+variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
 
--- Reusable sorry-free infrastructure from the completed WOWII 142 proof.
-#check SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice
-#check SimpleGraph.eccSet_maxEccentricityVertices_add_one_le_diam_splice
-#check SimpleGraph.maxEccentricityVertices_nonempty_splice
-#check SimpleGraph.exists_eccSet_witness_splice
-#check SimpleGraph.IsTree.induce_insert_of_unique_adj
+/-- Written on the Wall II, Conjecture 146. -/
+theorem conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj] (hG : G.Connected)
+    (hrad : 0 < graphSquareRadius G) :
+    2 * eccSet G (maxEccentricityVertices G : Set α) ≤
+      largestInducedTreeSize G * graphSquareRadius G := by
+  set p := eccSet G (maxEccentricityVertices G : Set α)
+  set d := G.diam
+  set t := largestInducedTreeSize G
+  set rho := graphSquareRadius G
+  have hrhoPos : 0 < rho := by simpa [rho] using hrad
+  by_cases hpzero : p = 0
+  · simp [hpzero]
+  have hpPos : 0 < p := Nat.pos_of_ne_zero hpzero
+  have hpDiam : p + 1 ≤ d := by
+    simpa [p, d] using
+      eccSet_maxEccentricityVertices_add_one_le_diam_splice hG hpPos
+  have hdiamTree : d + 1 ≤ t := by
+    simpa [d, t] using diam_add_one_le_largestInducedTreeSize_splice hG
+  by_cases hrhoTwo : 2 ≤ rho
+  · have hpt : p ≤ t := by omega
+    calc
+      2 * p ≤ 2 * t := Nat.mul_le_mul_left 2 hpt
+      _ ≤ rho * t := Nat.mul_le_mul_right t hrhoTwo
+      _ = t * rho := Nat.mul_comm _ _
+  · have hrhoOne : rho = 1 := by omega
+    have hdiamFour : d ≤ 4 := by
+      simpa [d, rho] using
+        diam_le_four_of_graphSquareRadius_eq_one G hG (by simpa [rho] using hrhoOne)
+    have hpThree : p ≤ 3 := by omega
+    by_cases hpTwo : p ≤ 2
+    · have : 2 * p ≤ t := by omega
+      simpa [hrhoOne] using this
+    · have hpEq : p = 3 := by omega
+      have hdEq : d = 4 := by omega
+      have htSix : 6 ≤ t := by
+        simpa [p, d, t, rho] using
+          exceptional_six_vertex_induced_tree G hG
+            (by simpa [rho] using hrhoOne)
+            (by simpa [d] using hdEq)
+            (by simpa [p] using hpEq)
+      have : 2 * p ≤ t := by omega
+      simpa [hrhoOne] using this
 
--- Metric and walk API expected in the proof.
-#check SimpleGraph.exists_dist_eq_diam
-#check SimpleGraph.exists_eccent_eq_radius
-#check SimpleGraph.ediam_le_two_mul_radius
-#check SimpleGraph.radius_ne_top_iff
-#check SimpleGraph.Connected.exists_walk_length_eq_dist
-#check SimpleGraph.exists_walk_of_dist_ne_zero
-#check SimpleGraph.dist_le
-#check SimpleGraph.dist_eq_one_iff_adj
-#check SimpleGraph.Walk.IsPath
-#check SimpleGraph.Walk.support
+#print axioms WOW146.conjecture146
 
 end WOW146
