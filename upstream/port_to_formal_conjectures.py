@@ -159,6 +159,18 @@ def patch_target(target: Path) -> None:
     target.write_text(text.replace(old, new, 1))
 
 
+def write_complete_patch(upstream: Path, patch_path: Path) -> None:
+    """Write a patch that includes both tracked edits and newly created files."""
+    subprocess.run(
+        ["git", "add", "-N", W142_REL.as_posix(), DEST_REL.as_posix()],
+        cwd=upstream,
+        check=True,
+    )
+    patch_path.parent.mkdir(parents=True, exist_ok=True)
+    diff = subprocess.check_output(["git", "diff", "--binary", "--full-index"], cwd=upstream)
+    patch_path.write_bytes(diff)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", type=Path, required=True, help="WOW-146 checkout")
@@ -187,9 +199,7 @@ def main() -> int:
     patch_target(target)
 
     if args.patch:
-        args.patch.parent.mkdir(parents=True, exist_ok=True)
-        diff = subprocess.check_output(["git", "diff", "--binary"], cwd=upstream)
-        args.patch.write_bytes(diff)
+        write_complete_patch(upstream, args.patch.resolve())
 
     print(f"Ported {len(SOURCE_MODULES)} WOWII 146 modules into {upstream}")
     print(f"Restored W142 prerequisite from {W142_REV}")
