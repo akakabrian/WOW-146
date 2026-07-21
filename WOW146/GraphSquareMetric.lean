@@ -84,7 +84,8 @@ private lemma graphSquare_dist_le_half_walk
           | nil =>
               have hs : (graphSquare G).Adj u v := adj_graphSquare_of_adj hux
               rw [dist_eq_one_iff_adj.mpr hs]
-              norm_num
+              simp at hn
+              omega
           | @cons x y v hxy r =>
               have hrlt : r.length < n := by
                 simp only [Walk.length_cons] at hn
