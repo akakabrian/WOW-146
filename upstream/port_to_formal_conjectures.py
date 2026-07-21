@@ -20,6 +20,29 @@ SOURCE_MODULES = [
 ]
 
 
+def moduleize(text: str) -> str:
+    """Convert a traditional Lean file to the upstream public-module format."""
+    if re.search(r"(?m)^module\s*$", text):
+        return text
+    lines = text.splitlines()
+    import_indices = [i for i, line in enumerate(lines) if line.startswith("import ")]
+    if not import_indices:
+        raise RuntimeError("file has no import block to moduleize")
+    first_import = import_indices[0]
+    lines.insert(first_import, "module")
+    for i in range(first_import + 1, len(lines)):
+        if lines[i].startswith("import "):
+            lines[i] = "public " + lines[i]
+    doc_index = next(
+        (i for i in range(first_import + 1, len(lines)) if lines[i].startswith("/-!")),
+        None,
+    )
+    if doc_index is None:
+        raise RuntimeError("file has no module docstring")
+    lines[doc_index:doc_index] = ["@[expose] public section", ""]
+    return "\n".join(lines) + "\n"
+
+
 def common_transform(text: str) -> str:
     text = text.replace("Copyright 2026 The WOW-146 Authors.",
                         "Copyright 2026 The Formal Conjectures Authors.")
@@ -85,7 +108,7 @@ def transform_module(name: str, text: str) -> str:
         text = transforms[name](text)
     if "import WOW146." in text or "graphSquareRadius G" in text:
         raise RuntimeError(f"unported reference in {name}")
-    return text
+    return moduleize(text)
 
 
 def restore_w142(upstream: Path) -> None:
@@ -93,9 +116,10 @@ def restore_w142(upstream: Path) -> None:
     if destination.exists():
         return
     content = subprocess.check_output(
-        ["git", "show", f"{W142_REV}:{W142_REL.as_posix()}"], cwd=upstream)
+        ["git", "show", f"{W142_REV}:{W142_REL.as_posix()}"], cwd=upstream,
+        text=True)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_bytes(content)
+    destination.write_text(moduleize(content))
 
 
 def patch_index(index: Path) -> None:
