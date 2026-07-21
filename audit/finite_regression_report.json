@@ -1,0 +1,363 @@
+{
+  "completeness_failures": {},
+  "connected_graph_counts": {
+    "2": 1,
+    "3": 2,
+    "4": 6,
+    "5": 21,
+    "6": 112,
+    "7": 853
+  },
+  "exceptional_failures": [],
+  "exceptional_graph_count": 13,
+  "expected_connected_graph_counts": {
+    "2": 1,
+    "3": 2,
+    "4": 6,
+    "5": 21,
+    "6": 112,
+    "7": 853
+  },
+  "inequality_failures": [],
+  "minimum_inequality_slack": 0,
+  "minimum_slack_examples": [
+    {
+      "atlas_index": 35,
+      "diameter": 3,
+      "graph6": "Dx_",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 5,
+      "periphery": [
+        3,
+        4
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 80,
+      "diameter": 4,
+      "graph6": "EiGO",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 6,
+      "periphery": [
+        4,
+        5
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 112,
+      "diameter": 3,
+      "graph6": "EhX_",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 6,
+      "periphery": [
+        0,
+        3
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 119,
+      "diameter": 3,
+      "graph6": "EtoO",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 6,
+      "periphery": [
+        1,
+        4,
+        5
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 134,
+      "diameter": 3,
+      "graph6": "E~_O",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 6,
+      "periphery": [
+        4,
+        5
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 140,
+      "diameter": 3,
+      "graph6": "Ev`_",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 6,
+      "periphery": [
+        4,
+        5
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 157,
+      "diameter": 3,
+      "graph6": "E~`_",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 6,
+      "periphery": [
+        4,
+        5
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 320,
+      "diameter": 4,
+      "graph6": "FhoI?",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        3,
+        5
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 327,
+      "diameter": 4,
+      "graph6": "FMoG_",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        5,
+        6
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 332,
+      "diameter": 4,
+      "graph6": "FMoa?",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        0,
+        5
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 333,
+      "diameter": 4,
+      "graph6": "Fpq?G",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        3,
+        6
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 339,
+      "diameter": 4,
+      "graph6": "FIo`G",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        0,
+        5,
+        6
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 385,
+      "diameter": 4,
+      "graph6": "F[EoG",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        1,
+        4
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 399,
+      "diameter": 4,
+      "graph6": "FeoJ?",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        2,
+        5
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 403,
+      "diameter": 4,
+      "graph6": "FEtB?",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        0,
+        2
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 416,
+      "diameter": 4,
+      "graph6": "FFwc?",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        5,
+        6
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 475,
+      "diameter": 3,
+      "graph6": "F~_Q?",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 7,
+      "periphery": [
+        4,
+        5,
+        6
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 494,
+      "diameter": 4,
+      "graph6": "Fz`_G",
+      "largest_induced_tree_size": 6,
+      "lhs": 6,
+      "order": 7,
+      "periphery": [
+        4,
+        6
+      ],
+      "periphery_eccentricity": 3,
+      "radius": 2,
+      "rhs": 6,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 505,
+      "diameter": 3,
+      "graph6": "FB}G_",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 7,
+      "periphery": [
+        0,
+        5,
+        6
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    },
+    {
+      "atlas_index": 557,
+      "diameter": 3,
+      "graph6": "FxCX_",
+      "largest_induced_tree_size": 4,
+      "lhs": 4,
+      "order": 7,
+      "periphery": [
+        0,
+        1,
+        4,
+        5
+      ],
+      "periphery_eccentricity": 2,
+      "radius": 2,
+      "rhs": 4,
+      "square_radius": 1
+    }
+  ],
+  "orders_checked": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "result": "PASS",
+  "source": "NetworkX graph_atlas_g: one representative of every unlabeled graph with at most seven vertices",
+  "spider_witness_found": true,
+  "total_connected_nontrivial_graphs_checked": 995
+}
