@@ -2,14 +2,19 @@
 
 ## Status
 
-The metric identity, square-radius formula, global bounds, exceptional induced-tree theorem, and exact top-level theorem are kernel-checked in this repository.
+The metric identity, square-radius formula, global bounds, exceptional induced-tree theorem, exact top-level theorem, and independent verification are complete in this repository.
 
-The immutable proof commit is:
+Immutable proof commit:
 
 - `0b750ac1ac987d7085fff796b4ea91a0cf4ecd70`
 - https://github.com/akakabrian/WOW-146/commit/0b750ac1ac987d7085fff796b4ea91a0cf4ecd70
 
-Issue #6 remains the independent audit and finite-regression gate before submitting upstream or merging the integration PR to `main`.
+Independent audit merge commit:
+
+- `bdb4a9d685dd90b2ac87787df5e29de52c50eda6`
+- https://github.com/akakabrian/WOW-146/commit/bdb4a9d685dd90b2ac87787df5e29de52c50eda6
+
+The audit checked the kernel signature and axioms, scanned all reachable local proof sources, reviewed every `ENat.toNat` conversion and exceptional induced-tree branch, and exhaustively tested all 995 connected unlabeled graphs with two through seven vertices. All 13 exceptional graphs passed.
 
 ## Mathematical summary
 
@@ -62,7 +67,7 @@ by
 
 The submission bundle under `upstream/` contains the target-file patch and porting map for the supporting proof modules. After those modules are copied into the upstream tree, the conjecture body becomes a direct application of the ported proof theorem.
 
-The problem annotation should change from `research open` to `research solved` only in the actual upstream submission, after issue #6 signs off. The upstream PR description should link the immutable proof commit above rather than a moving branch URL.
+The problem annotation may now change from `research open` to `research solved` in the actual upstream submission. The upstream PR description should link the immutable proof and audit commits above rather than a moving branch URL. The final namespace port must be compiled in the upstream repository before submission.
 
 ## AI-assistance disclosure
 
@@ -85,4 +90,6 @@ Suggested disclosure:
 - [x] `lake --wfail build` passes.
 - [x] `#print axioms` contains only standard Lean axioms.
 - [x] Immutable proof commit recorded.
-- [ ] Independent audit issue #6 completed.
+- [x] Independent audit issue #6 completed.
+- [x] Connected unlabeled graphs through seven vertices exhaustively tested.
+- [x] Upstream target patch and AI-assistance disclosure prepared.
