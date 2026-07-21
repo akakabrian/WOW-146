@@ -16,8 +16,7 @@ limitations under the License.
 
 import WOW146.GraphSquareRadius
 import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
-import Mathlib.Combinatorics.SimpleGraph.CycleGraph
-import Mathlib.Combinatorics.SimpleGraph.Star
+import Mathlib.Combinatorics.SimpleGraph.Hasse
 
 /-!
 # Global bounds for WOWII Conjecture 146
@@ -112,21 +111,26 @@ lemma diam_le_two_mul_radius_toNat (hG : G.Connected) :
 
 section Regression
 
+/-- Path regression: the five-vertex path is connected. -/
 example : (pathGraph 5).diam + 1 ≤ largestInducedTreeSize (pathGraph 5) := by
   apply diam_succ_le_largestInducedTreeSize
   simpa using pathGraph_connected 4
 
+/-- Cycle regression: the triangle is the complete graph on three vertices. -/
 example :
-    eccSet (cycleGraph 6) (maxEccentricityVertices (cycleGraph 6) : Set (Fin 6)) + 1 ≤
-      (cycleGraph 6).diam := by
-  apply eccSet_periphery_add_one_le_diam
-  simpa using cycleGraph_connected 5
+    eccSet (⊤ : SimpleGraph (Fin 3))
+        (maxEccentricityVertices (⊤ : SimpleGraph (Fin 3)) : Set (Fin 3)) + 1 ≤
+      (⊤ : SimpleGraph (Fin 3)).diam :=
+  eccSet_periphery_add_one_le_diam connected_top
 
-example : (⊤ : SimpleGraph (Fin 4)).radius.toNat ≤ (⊤ : SimpleGraph (Fin 4)).diam := by
-  exact radius_toNat_le_diam connected_top
+/-- Complete-graph regression. -/
+example : (⊤ : SimpleGraph (Fin 4)).radius.toNat ≤ (⊤ : SimpleGraph (Fin 4)).diam :=
+  radius_toNat_le_diam connected_top
 
-example : (starGraph (0 : Fin 5)).diam ≤ 2 * (starGraph (0 : Fin 5)).radius.toNat := by
-  exact diam_le_two_mul_radius_toNat (connected_starGraph 0)
+/-- Star regression: the three-vertex path is the star `K₁,₂`. -/
+example : (pathGraph 3).diam ≤ 2 * (pathGraph 3).radius.toNat := by
+  apply diam_le_two_mul_radius_toNat
+  simpa using pathGraph_connected 2
 
 end Regression
 
