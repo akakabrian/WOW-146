@@ -1,0 +1,217 @@
+$ lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146 FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+✔ [7884/7891] Built FormalConjecturesForMathlib.Algebra.Group.Action.Pointwise.Set.Basic (1.3s)
+✔ [7885/7892] Built FormalConjecturesForMathlib.Algebra.GCDMonoid.Finset (1.5s)
+✔ [7886/7892] Built FormalConjecturesForMathlib.Order.Filter.atTopBot.Finset (1.5s)
+✔ [7887/7892] Built FormalConjecturesForMathlib.Algebra.Group.Indicator (1.4s)
+✔ [7888/7894] Built FormalConjecturesForMathlib.Algebra.Polynomial.Basic (1.6s)
+✔ [7889/7895] Built FormalConjecturesForMathlib.Algebra.Polynomial.Algebra (2.6s)
+✔ [7890/7896] Built FormalConjecturesForMathlib.Algebra.Polynomial.HasseDeriv (2.1s)
+✔ [7891/7897] Built FormalConjecturesForMathlib.Algebra.Powerfree (2.3s)
+✔ [7892/7898] Built FormalConjecturesForMathlib.Algebra.Order.Group.Pointwise.Interval (5.3s)
+✔ [7893/7899] Built FormalConjecturesForMathlib.Algebra.QuadraticAlgebra.Basic (3.6s)
+✔ [7894/7900] Built FormalConjecturesForMathlib.Algebra.Group.GrowthFunction (8.0s)
+✔ [7895/7901] Built FormalConjecturesForMathlib.Algebra.QuadraticAlgebra.Instances (3.4s)
+✔ [7896/7901] Built FormalConjecturesForMathlib.AlgebraicGeometry.ProjectiveSpace (3.2s)
+✔ [7897/7904] Built FormalConjecturesForMathlib.Analysis.Equidistribution.ModOne (1.0s)
+✔ [7898/7905] Built FormalConjecturesForMathlib.Analysis.Asymptotics.Basic (2.3s)
+✔ [7899/7906] Built FormalConjecturesForMathlib.AlgebraicGeometry.VectorBundle (3.4s)
+✔ [7900/7907] Built FormalConjecturesForMathlib.Topology.Algebra.InfiniteSum.Order (1.0s)
+✔ [7901/7908] Built FormalConjecturesForMathlib.Topology.Algebra.InfiniteSum.Group (2.1s)
+✔ [7902/7908] Built FormalConjecturesForMathlib.Analysis.Fourier.SpectralSets (4.9s)
+✔ [7903/7908] Built FormalConjecturesForMathlib.Analysis.Real.Cardinality (1.0s)
+✔ [7904/7911] Built FormalConjecturesForMathlib.Analysis.SpecialFunctions.NthRoot (3.9s)
+✔ [7905/7912] Built FormalConjecturesForMathlib.Analysis.SpecialFunctions.Log.Basic (4.4s)
+✔ [7906/7913] Built FormalConjecturesForMathlib.Combinatorics.AP.Basic (3.5s)
+✔ [7907/7914] Built FormalConjecturesForMathlib.Analysis.HasGaps (4.2s)
+✔ [7908/7914] Built FormalConjecturesForMathlib.Order.Filter.Cofinite (1.6s)
+✔ [7909/7916] Built FormalConjecturesForMathlib.Combinatorics.Additive.Convolution (2.0s)
+✔ [7910/7917] Built FormalConjecturesForMathlib.Combinatorics.Additive.DifferenceBasis (1.6s)
+✔ [7911/7918] Built FormalConjecturesForMathlib.Combinatorics.Additive.RestrictedSumset (1.4s)
+✔ [7912/7919] Built FormalConjecturesForMathlib.Combinatorics.SetFamily.VCDim (1.0s)
+✔ [7913/7920] Built FormalConjecturesForMathlib.Combinatorics.Additive.Coset (5.8s)
+✔ [7914/7920] Built FormalConjecturesForMathlib.Combinatorics.Hypergraph.ThreeUniform (2.5s)
+✔ [7915/7921] Built FormalConjecturesForMathlib.Combinatorics.Additive.Basis (6.2s)
+✔ [7916/7923] Built FormalConjecturesForMathlib.Combinatorics.LatinSquare (2.0s)
+✔ [7917/7924] Built FormalConjecturesForMathlib.Combinatorics.Ramsey (1.4s)
+✔ [7918/7925] Built FormalConjecturesForMathlib.Combinatorics.Additive.VCDim (4.4s)
+✔ [7919/7925] Built FormalConjecturesForMathlib.Combinatorics.SetFamily.Sunflower (1.5s)
+✔ [7920/7926] Built FormalConjecturesForMathlib.Combinatorics.SetTheory.PartitionRelation (1.5s)
+✔ [7921/7927] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Balanced (1.5s)
+✔ [7922/7929] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Circumference (1.6s)
+✔ [7923/7930] Built FormalConjecturesForMathlib.Combinatorics.Ramsey.Diagonal (2.5s)
+✔ [7924/7933] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Clique (2.4s)
+✔ [7925/7933] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.CompleteGraphEdgeCount (1.5s)
+✔ [7926/7933] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.CycleRank (1.5s)
+✔ [7927/7934] Built FormalConjecturesForMathlib.Combinatorics.Basic (13s)
+✔ [7928/7934] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.DiamExtra (1.7s)
+✔ [7929/7940] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Residue (2.2s)
+✔ [7930/7940] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.FractionalAlpha (2.1s)
+✔ [7931/7941] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.VertexDistance (3.9s)
+✔ [7932/7942] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Degrees (2.0s)
+✔ [7933/7942] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Cvetkovic (2.1s)
+✔ [7934/7942] Built FormalConjecturesForMathlib.Analysis.Matrix.Spectrum (2.5s)
+✔ [7935/7943] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Coloring (6.5s)
+✔ [7936/7944] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.SzegedIndex (2.3s)
+✔ [7937/7944] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Independence (1.0s)
+✔ [7938/7944] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.AnnihilationNumber (1.9s)
+✔ [7939/7945] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.WienerIndex (2.7s)
+✔ [7940/7946] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Temperature (1.6s)
+✔ [7941/7947] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Induced (1.8s)
+✔ [7942/7948] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.LovaszTheta (2.5s)
+✔ [7943/7949] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Eccentricity (2.7s)
+✔ [7944/7950] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.PathCover (1.7s)
+✔ [7945/7950] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.EdgeColouring (1.4s)
+✔ [7946/7953] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.LargestInducedTree (1.6s)
+✔ [7947/7954] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Domination (1.0s)
+✔ [7948/7955] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.WellTotallyDominated (1.5s)
+✔ [7949/7956] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.HomDensity (2.1s)
+✔ [7950/7957] Built FormalConjecturesForMathlib.Data.Finset.Card (1.4s)
+✔ [7951/7958] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Ramsey (1.6s)
+✔ [7952/7958] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.SizeRamsey (1.6s)
+✔ [7953/7959] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Connectivity (1.6s)
+✔ [7954/7960] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Matching (1.9s)
+✔ [7955/7961] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Johnson (1.9s)
+✔ [7956/7961] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.SpanningTree (1.8s)
+✔ [7957/7964] Built FormalConjecturesForMathlib.Combinatorics.YoungDiagram (1.4s)
+✔ [7958/7965] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.UnitDistancePlaneGraph (2.4s)
+✔ [7959/7967] Built FormalConjecturesForMathlib.Computability.DFA (1.5s)
+✔ [7960/7968] Built FormalConjecturesForMathlib.Computability.Encoding (1.7s)
+✔ [7961/7969] Built FormalConjecturesForMathlib.Computability.TuringMachine.PostTuringMachine (1.7s)
+✔ [7962/7970] Built FormalConjecturesForMathlib.Data.Finset.Powerset (1.5s)
+✔ [7963/7970] Built FormalConjecturesForMathlib.Data.Int.IntermediateValue (1.2s)
+✔ [7964/7971] Built FormalConjecturesForMathlib.Data.Finset.ReciprocalSum (1.6s)
+✔ [7965/7972] Built FormalConjecturesForMathlib.Data.Nat.Init (1.2s)
+✔ [7966/7973] Built FormalConjecturesForMathlib.Data.Nat.Factorization.Basic (1.0s)
+✔ [7967/7974] Built FormalConjecturesForMathlib.Data.Nat.Full (2.3s)
+✔ [7968/7975] Built FormalConjecturesForMathlib.Computability.TuringMachine.BusyBeavers (2.9s)
+✔ [7969/7975] Built FormalConjecturesForMathlib.Data.Nat.MaxPrimeFac (1.9s)
+✔ [7970/7976] Built FormalConjecturesForMathlib.Data.Nat.Prime.Composite (1.3s)
+✔ [7971/7977] Built FormalConjecturesForMathlib.Data.Nat.Prime.Finset (1.4s)
+✔ [7972/7978] Built FormalConjecturesForMathlib.Data.Nat.Prime.Defs (2.5s)
+✔ [7973/7978] Built FormalConjecturesForMathlib.Data.Nat.PerfectPower (3.7s)
+✔ [7974/7980] Built FormalConjecturesForMathlib.Computability.TuringMachine.Notation (3.1s)
+✔ [7975/7982] Built FormalConjecturesForMathlib.Data.Real.NearestInt (1.5s)
+✔ [7976/7982] Built FormalConjecturesForMathlib.Data.Set.Interval (1.5s)
+✔ [7977/7984] Built FormalConjecturesForMathlib.Data.Real.Constants (2.5s)
+✔ [7978/7985] Built FormalConjecturesForMathlib.Data.Nat.Squarefree (3.4s)
+✔ [7979/7986] Built FormalConjecturesForMathlib.Order.Interval.Finset.Basic (1.6s)
+✔ [7980/7987] Built FormalConjecturesForMathlib.Order.Interval.Finset.Nat (1.6s)
+✔ [7981/7988] Built FormalConjecturesForMathlib.Data.ZMod.Fp (1.6s)
+✔ [7982/7988] Built FormalConjecturesForMathlib.Data.Set.Triplewise (2.3s)
+✔ [7983/7988] Built FormalConjecturesForMathlib.Data.ZMod.PerfectDifferenceSet (1.6s)
+✔ [7984/7990] Built FormalConjecturesForMathlib.FieldTheory.MvRatFunc.Defs (1.9s)
+✔ [7985/7992] Built FormalConjecturesForMathlib.Geometry.Metric (1.7s)
+✔ [7986/7993] Built FormalConjecturesForMathlib.Logic.Equiv.Fin.Rotate (1.3s)
+✔ [7987/7994] Built FormalConjecturesForMathlib.Geometry.Euclidean (2.6s)
+✔ [7988/7994] Built FormalConjecturesForMathlib.LinearAlgebra.AffineSpace.Simplex.Basic (1.9s)
+✔ [7989/7996] Built FormalConjecturesForMathlib.Geometry.«3d» (3.2s)
+✔ [7990/7997] Built FormalConjecturesForMathlib.Data.Set.Density (5.3s)
+✔ [7991/7998] Built FormalConjecturesForMathlib.LinearAlgebra.GeneralLinearGroup (2.2s)
+✔ [7992/7999] Built FormalConjecturesForMathlib.NumberTheory.AdditivelyComplete (2.1s)
+✔ [7993/7999] Built FormalConjecturesForMathlib.NumberTheory.Amicable (1.8s)
+✔ [7994/8000] Built FormalConjecturesForMathlib.NumberTheory.BeurlingPrimes (2.4s)
+✔ [7995/8001] Built FormalConjecturesForMathlib.LinearAlgebra.SpecialLinearGroup (2.9s)
+✔ [7996/8001] Built FormalConjecturesForMathlib.Geometry.«2d» (7.0s)
+✔ [7997/8003] Built FormalConjecturesForMathlib.NumberTheory.CoveringSystem (1.0s)
+✔ [7998/8004] Built FormalConjecturesForMathlib.NumberTheory.DirichletCharacter.Basic (1.8s)
+✔ [7999/8005] Built FormalConjecturesForMathlib.NumberTheory.Divisors (1.6s)
+✔ [8000/8006] Built FormalConjecturesForMathlib.NumberTheory.Lacunary (2.2s)
+✔ [8001/8007] Built FormalConjecturesForMathlib.NumberTheory.Carmichael (6.3s)
+✔ [8002/8008] Built FormalConjecturesForMathlib.NumberTheory.NormalNumber (1.7s)
+✔ [8003/8009] Built FormalConjecturesForMathlib.NumberTheory.LegendreSymbol.Basic (2.3s)
+✔ [8004/8010] Built FormalConjecturesForMathlib.NumberTheory.PrimeGap (1.3s)
+✔ [8005/8011] Built FormalConjecturesForMathlib.NumberTheory.PracticalNumbers (1.5s)
+✔ [8006/8012] Built FormalConjecturesForMathlib.NumberTheory.NumberField.Quadratic (2.4s)
+✔ [8007/8013] Built FormalConjecturesForMathlib.NumberTheory.PisotNumber (3.2s)
+✔ [8008/8014] Built FormalConjecturesForMathlib.NumberTheory.SierpinskiNumber (1.3s)
+✔ [8009/8015] Built FormalConjecturesForMathlib.NumberTheory.Primitive (1.9s)
+✔ [8010/8016] Built FormalConjecturesForMathlib.Probability.FiniteMethod (1.7s)
+✔ [8011/8016] Built FormalConjecturesForMathlib.SetTheory.Cardinal.Arithmetic (1.8s)
+✔ [8012/8018] Built FormalConjecturesForMathlib.NumberTheory.WallSunSunPrimes (2.9s)
+✔ [8013/8019] Built FormalConjecturesForMathlib.SetTheory.Cardinal.Continuum (1.5s)
+✔ [8014/8020] Built FormalConjecturesForMathlib.SetTheory.Cardinal.SimpleGraph (1.6s)
+✔ [8015/8022] Built FormalConjecturesForMathlib.Topology.AbsoluteNeighborhoodRetract (1.5s)
+✔ [8016/8022] Built FormalConjecturesForMathlib.Topology.Discrete (1.6s)
+✔ [8017/8024] Built FormalConjecturesForMathlib.Topology.GDelta (1.5s)
+✔ [8018/8027] Built FormalConjecturesUtil.Answer.Syntax (312ms)
+✔ [8019/8028] Built FormalConjecturesForMathlib.Topology.LebesgueCoveringDimension (1.6s)
+✔ [8020/8031] Built FormalConjecturesForMathlib.Topology.Homogeneous (1.5s)
+✔ [8021/8035] Built FormalConjecturesUtil.Answer (1.1s)
+✔ [8022/8038] Built FormalConjecturesForMathlib.Topology.MetricSpace.MetricSeparated (1.7s)
+✔ [8023/8038] Built FormalConjecturesForMathlib.Lean.Elab.InfoTree.Util (455ms)
+✔ [8025/8039] Built FormalConjecturesUtil.Linters.CopyrightLinter (674ms)
+✔ [8026/8039] Built FormalConjecturesUtil.Linters.ModuleDocstringLinter (961ms)
+✔ [8027/8039] Built FormalConjecturesUtil.Linters.NamespaceLinter (711ms)
+✔ [8028/8039] Built FormalConjecturesUtil.Attributes.AMS (1.0s)
+✔ [8029/8039] Built FormalConjecturesForMathlib.Tactic.Linter.Term (736ms)
+✔ [8030/8039] Built FormalConjecturesUtil.Linters.ExistsImplicationLinter (691ms)
+✔ [8031/8039] Built FormalConjecturesUtil.Attributes.Basic (2.6s)
+✔ [8032/8039] Built FormalConjecturesForMathlib (6.5s)
+✔ [8033/8039] Built FormalConjecturesUtil.Linters.CategoryDocstringLinter (2.8s)
+✔ [8034/8039] Built FormalConjecturesUtil.Linters.CategoryLinter (3.0s)
+✔ [8035/8039] Built FormalConjecturesUtil.Linters.AnswerLinter (1.7s)
+✔ [8036/8039] Built FormalConjecturesUtil.Linters.AMSLinter (2.8s)
+✔ [8037/8039] Built FormalConjecturesUtil (4.2s)
+✔ [8038/8039] Built FormalConjectures.WrittenOnTheWallII.GraphConjecture146 (4.9s)
+✔ [8039/8039] Built FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof (19s)
+Build completed successfully (8039 jobs).
+$ lake env lean -DwarningAsError=true WOW146.lean
+WOW146.lean:1:0: error: unknown module prefix 'WOW146'
+
+No directory 'WOW146' or file 'WOW146.olean' in the search path entries:
+/home/runner/work/WOW-146/WOW-146/.lake/packages/Cli/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/batteries/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/Qq/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/aesop/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/proofwidgets/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/importGraph/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/LeanSearchClient/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/plausible/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/mathlib/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/packages/formal_conjectures/.lake/build/lib/lean
+/home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean
+/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean
+/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean
+$ lake --wfail build
+ℹ [8041/8043] Built WOW146.GraphConjecture146Proof (4.1s)
+info: WOW146/GraphConjecture146Proof.lean:34:0: WrittenOnTheWallII.GraphConjecture146.conjecture146.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α] [Nontrivial α]
+  (G : SimpleGraph α) [DecidableRel G.Adj] (h : G.Connected)
+  (hrad : 0 < WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G) :
+  2 * G.eccSet G.maxEccentricityVertices ≤
+    G.largestInducedTreeSize * WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G
+info: WOW146/GraphConjecture146Proof.lean:35:0: WrittenOnTheWallII.GraphConjecture146.graphSquareRadius.{u_1} {α : Type u_1} (G : SimpleGraph α) : ℕ
+info: WOW146/GraphConjecture146Proof.lean:38:0: SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α]
+  {G : SimpleGraph α} [Nonempty α] (hconn : G.Connected) : G.diam + 1 ≤ G.largestInducedTreeSize
+info: WOW146/GraphConjecture146Proof.lean:39:0: SimpleGraph.eccSet_maxEccentricityVertices_add_one_le_diam_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α}
+  [Nontrivial α] (hconn : G.Connected) (hfpos : 0 < G.eccSet G.maxEccentricityVertices) :
+  G.eccSet G.maxEccentricityVertices + 1 ≤ G.diam
+info: WOW146/GraphConjecture146Proof.lean:40:0: SimpleGraph.maxEccentricityVertices_nonempty_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α} [Nonempty α] :
+  G.maxEccentricityVertices.Nonempty
+info: WOW146/GraphConjecture146Proof.lean:41:0: SimpleGraph.exists_eccSet_witness_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α} [Nonempty α] (S : Set α) :
+  ∃ v, G.distToSet v S = G.eccSet S
+info: WOW146/GraphConjecture146Proof.lean:42:0: SimpleGraph.IsTree.induce_insert_of_unique_adj.{u_1} {α : Type u_1} [DecidableEq α] {G : SimpleGraph α} {s : Finset α}
+  {z a : α} (hT : (induce (↑s) G).IsTree) (_hz : z ∉ s) (ha : a ∈ s) (hza : G.Adj z a)
+  (huniq : ∀ ⦃b : α⦄, b ∈ s → G.Adj z b → b = a) : (induce (↑(insert z s)) G).IsTree
+info: WOW146/GraphConjecture146Proof.lean:45:0: SimpleGraph.exists_dist_eq_diam.{u_1} {α : Type u_1} {G : SimpleGraph α} [Nonempty α] : ∃ u v, G.dist u v = G.diam
+info: WOW146/GraphConjecture146Proof.lean:46:0: SimpleGraph.exists_eccent_eq_radius.{u_1} {α : Type u_1} {G : SimpleGraph α} [Nonempty α] : ∃ u, G.eccent u = G.radius
+info: WOW146/GraphConjecture146Proof.lean:47:0: SimpleGraph.ediam_le_two_mul_radius.{u_1} {α : Type u_1} {G : SimpleGraph α} [Finite α] : G.ediam ≤ 2 * G.radius
+info: WOW146/GraphConjecture146Proof.lean:48:0: SimpleGraph.radius_ne_top_iff.{u_1} {α : Type u_1} {G : SimpleGraph α} [Nonempty α] [Finite α] :
+  G.radius ≠ ⊤ ↔ G.Connected
+info: WOW146/GraphConjecture146Proof.lean:49:0: SimpleGraph.Connected.exists_walk_length_eq_dist.{u_1} {V : Type u_1} {G : SimpleGraph V} (hconn : G.Connected)
+  (u v : V) : ∃ p, p.length = G.dist u v
+info: WOW146/GraphConjecture146Proof.lean:50:0: SimpleGraph.exists_walk_of_dist_ne_zero.{u_1} {V : Type u_1} {G : SimpleGraph V} {u v : V} (h : G.dist u v ≠ 0) :
+  ∃ p, p.length = G.dist u v
+info: WOW146/GraphConjecture146Proof.lean:51:0: SimpleGraph.dist_le.{u_1} {V : Type u_1} {G : SimpleGraph V} {u v : V} (p : G.Walk u v) : G.dist u v ≤ p.length
+info: WOW146/GraphConjecture146Proof.lean:52:0: SimpleGraph.dist_eq_one_iff_adj.{u_1} {V : Type u_1} {G : SimpleGraph V} {u v : V} : G.dist u v = 1 ↔ G.Adj u v
+info: WOW146/GraphConjecture146Proof.lean:53:0: SimpleGraph.Walk.IsPath.{u} {V : Type u} {G : SimpleGraph V} {u v : V} (p : G.Walk u v) : Prop
+info: WOW146/GraphConjecture146Proof.lean:54:0: SimpleGraph.Walk.support.{u} {V : Type u} {G : SimpleGraph V} {u v : V} : G.Walk u v → List V
+⚠ [8042/8043] Building WOW146 (3.9s)
+trace: .> LEAN_PATH=/home/runner/work/WOW-146/WOW-146/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/formal_conjectures/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/bin/lean /home/runner/work/WOW-146/WOW-146/WOW146.lean -o /home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean/WOW146.olean -i /home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean/WOW146.ilean -c /home/runner/work/WOW-146/WOW-146/.lake/build/ir/WOW146.c --setup /home/runner/work/WOW-146/WOW-146/.lake/build/ir/WOW146.setup.json --json
+warning: WOW146.lean:2:0: This file has no module docstring (`/-! ... -/`). Add one after the imports to document the file.
+
+Note: This linter can be disabled with `set_option linter.style.moduleDocstring false`
+Some required targets logged failures:
+- WOW146
+error: build failed
+
+EXIT_STATUS=1
