@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - 'proof/**'
+      - 'agent-**'
     paths-ignore:
       - lean-ci.log
   pull_request:
     branches:
       - main
+      - proof/wowii-146
   workflow_dispatch:
 
 permissions:
