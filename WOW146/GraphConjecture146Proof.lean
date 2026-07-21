@@ -14,15 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import WOW146.GlobalBounds
+import WOW146.Reduction
 
 /-!
 # Written on the Wall II — Conjecture 146
 
 Standalone proof harness for the exact current Formal Conjectures statement.
-The declarations below are deliberately restricted to APIs already confirmed
-against the pinned dependency. New lemmas should be added in named modules and
-kept warning-free.
+Issues #2 and #3 supply all metric and global bounds.  The complete arithmetic
+integration is now kernel-checked in `conjecture146_of_exceptional_case`; the
+only remaining input is the exceptional induced-tree theorem from issue #4.
 -/
 
 open Classical
@@ -43,11 +43,7 @@ namespace WOW146
 #check SimpleGraph.radius_toNat_le_diam
 #check SimpleGraph.diam_le_two_mul_radius_toNat
 
--- Reusable, sorry-free infrastructure from the completed WOWII 142 proof.
-#check SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice
-#check SimpleGraph.eccSet_maxEccentricityVertices_add_one_le_diam_splice
-#check SimpleGraph.maxEccentricityVertices_nonempty_splice
-#check SimpleGraph.exists_eccSet_witness_splice
-#check SimpleGraph.IsTree.induce_insert_of_unique_adj
+-- Complete integration, parameterized only by the pending issue #4 theorem.
+#check WOW146.conjecture146_of_exceptional_case
 
 end WOW146
