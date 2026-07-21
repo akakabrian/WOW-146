@@ -2,10 +2,15 @@
 
 ## Status
 
-The metric identity, square-radius formula, global bounds, and complete
-arithmetic reduction are kernel-checked. The only pending dependency is the
-exceptional induced-tree theorem from issue #4. Do **not** mark the upstream
-conjecture solved until that theorem is merged and the final axiom audit passes.
+The metric identity, square-radius formula, global bounds, complete arithmetic
+reduction, and the radius-2 exceptional induced-tree theorem (issue #4) are all
+kernel-checked. They are assembled into the exact upstream statement by
+`WOW146.conjecture146` in `WOW146/Conjecture146.lean`, which is `sorry`-free and
+whose `#print axioms` is exactly `propext, Classical.choice, Quot.sound`.
+
+The upstream problem annotation may be changed from `research open` to
+`research solved` once this integration lands and an immutable commit hash for
+`WOW146.conjecture146` is available (see "Annotation update" below).
 
 ## Mathematical summary
 
@@ -39,17 +44,18 @@ where issue #4 supplies `6 <= t`.
 
 ## Upstream theorem body
 
-After the exceptional theorem is merged, the upstream theorem body should be
-a direct application of the integration theorem:
+The upstream theorem body is a direct application of the integration theorem to
+the issue #4 exceptional lemma, exactly as realized in `WOW146.conjecture146`:
 
 ```lean
-by
-  exact WOW146.conjecture146_of_exceptional_case G h hrad
-    (fun hr hd hp => WOW146.exceptional_case G h hr hd hp)
+  conjecture146_of_exceptional_case G h hrad
+    (fun hr hd hp => SimpleGraph.exceptional_case h hr hd hp)
 ```
 
-The final exceptional theorem name and argument order must be substituted from
-the merged issue #4 implementation.
+Here `SimpleGraph.exceptional_case` is the issue #4 theorem
+(`WOW146/ExceptionalCase.lean`); the branch also carries an independent
+`WOW146.exceptional_case` with the identical signature, so either may be
+substituted upstream.
 
 ## Annotation update
 
@@ -72,11 +78,11 @@ Suggested disclosure:
 
 ## Final verification checklist
 
-- [ ] Issue #4 exceptional theorem merged.
-- [ ] Exact theorem signature unchanged.
-- [ ] No `sorry`, `admit`, `native_decide`, or project-specific axiom.
-- [ ] `lake env lean -DwarningAsError=true WOW146.lean` passes.
-- [ ] `lake --wfail build` passes.
-- [ ] `#print axioms` contains only standard Lean axioms.
-- [ ] Immutable proof commit linked in the upstream annotation/PR.
+- [x] Issue #4 exceptional theorem integrated (`SimpleGraph.exceptional_case`).
+- [x] Exact theorem signature unchanged (`WOW146.conjecture146`).
+- [x] No `sorry`, `admit`, `native_decide`, or project-specific axiom.
+- [x] `lake env lean -DwarningAsError=true WOW146.lean` passes.
+- [x] `lake --wfail build` passes.
+- [x] `#print axioms WOW146.conjecture146` = `propext, Classical.choice, Quot.sound`.
+- [ ] Immutable proof commit linked in the upstream annotation/PR (after merge).
 - [ ] Independent audit issue #6 completed.

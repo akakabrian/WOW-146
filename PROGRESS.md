@@ -6,8 +6,8 @@ Integration target: `proof/wowii-146` → `main`.
 |---|---:|---|---|
 | Square-graph distance and radius | #2 | Complete | Merged via PR #8; focused and full CI passed. |
 | Diameter, periphery, and induced-geodesic bounds | #3 | Complete | Merged via PR #10; focused and full CI passed. |
-| Radius-2 exceptional induced-tree lemma | #4 | In progress | Claude is formalizing the sole remaining graph-theoretic corner. |
-| Top-level assembly and upstream patch | #5 | In progress | Arithmetic reduction and submission notes are complete; exact wrapper awaits #4. |
+| Radius-2 exceptional induced-tree lemma | #4 | Complete | `SimpleGraph.exceptional_case` in `WOW146/ExceptionalCase.lean` (sorry-free, standard axioms). |
+| Top-level assembly and upstream patch | #5 | Complete | Exact `WOW146.conjecture146` in `WOW146/Conjecture146.lean` wires the reduction to the #4 theorem; warning-free CI and axiom audit pass. |
 | Independent verification | #6 | Blocked | Begins after #4 is connected to the issue #5 wrapper. |
 
 ## Merge discipline
