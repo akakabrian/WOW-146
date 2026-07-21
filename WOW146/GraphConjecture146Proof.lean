@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import FormalConjectures.WrittenOnTheWallII.GraphConjecture146
-import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+import WOW146.Metric
 
 /-!
 # Written on the Wall II — Conjecture 146
@@ -33,51 +32,6 @@ open WrittenOnTheWallII.GraphConjecture146
 namespace WOW146
 
 variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
-
-/-- Every edge of `G` is an edge of its square, so connectedness is preserved. -/
-lemma connected_graphSquare (G : SimpleGraph α) (hG : G.Connected) :
-    (graphSquare G).Connected := by
-  refine hG.mono ?_
-  intro u v huv
-  refine ⟨G.ne_of_adj huv, ?_⟩
-  exact (G.dist_le (.cons huv .nil)).trans (by norm_num)
-
-/-- Square-graph distance at most one implies original distance at most two. -/
-lemma dist_le_two_of_graphSquare_dist_le_one (G : SimpleGraph α) (hG : G.Connected)
-    {u v : α} (h : (graphSquare G).dist u v ≤ 1) : G.dist u v ≤ 2 := by
-  by_cases huv : u = v
-  · subst v
-    simp
-  · have hsconn : (graphSquare G).Connected := connected_graphSquare G hG
-    have hpos : 0 < (graphSquare G).dist u v := hsconn.pos_dist_of_ne huv
-    have hdist : (graphSquare G).dist u v = 1 := by omega
-    exact (dist_eq_one_iff_adj.mp hdist).2
-
-/-- If the square graph has natural radius one, then `G` has diameter at most four. -/
-lemma diam_le_four_of_graphSquareRadius_eq_one (G : SimpleGraph α) [DecidableRel G.Adj]
-    (hG : G.Connected) (hrho : graphSquareRadius G = 1) : G.diam ≤ 4 := by
-  have hsconn : (graphSquare G).Connected := connected_graphSquare G hG
-  obtain ⟨c, hc⟩ := (graphSquare G).exists_eccent_eq_radius
-  have hrfin : (graphSquare G).radius ≠ ⊤ := radius_ne_top_iff.mpr hsconn
-  have hefin : (graphSquare G).eccent c ≠ ⊤ := by
-    rw [hc]
-    exact hrfin
-  have hcenterSq (v : α) : (graphSquare G).dist c v ≤ 1 := by
-    change ((graphSquare G).edist c v).toNat ≤ 1
-    calc
-      ((graphSquare G).edist c v).toNat ≤ ((graphSquare G).eccent c).toNat :=
-        ENat.toNat_le_toNat edist_le_eccent hefin
-      _ = ((graphSquare G).radius).toNat := congrArg ENat.toNat hc
-      _ = graphSquareRadius G := rfl
-      _ = 1 := hrho
-  have hcenter (v : α) : G.dist c v ≤ 2 :=
-    dist_le_two_of_graphSquare_dist_le_one G hG (hcenterSq v)
-  obtain ⟨u, v, huv⟩ := G.exists_dist_eq_diam
-  rw [← huv]
-  calc
-    G.dist u v ≤ G.dist u c + G.dist c v := hG.dist_triangle
-    _ ≤ 2 + 2 := Nat.add_le_add (by simpa [dist_comm] using hcenter u) (hcenter v)
-    _ = 4 := by norm_num
 
 /-- The sharp residual lemma. It is proved below by the audited finite
 induced-tree construction; it is declared here temporarily so the global
