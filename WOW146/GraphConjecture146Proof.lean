@@ -15,35 +15,33 @@ limitations under the License.
 -/
 
 import WOW146.Reduction
+import WOW146.ExceptionalTheorem
 
 /-!
 # Written on the Wall II — Conjecture 146
 
-Standalone proof harness for the exact current Formal Conjectures statement.
-Issues #2 and #3 supply all metric and global bounds.  The complete arithmetic
-integration is now kernel-checked in `conjecture146_of_exceptional_case`; the
-only remaining input is the exceptional induced-tree theorem from issue #4.
+This module proves a theorem with the exact hypotheses and conclusion of the
+current Formal Conjectures declaration.  The proof combines the general
+arithmetic reduction with the kernel-checked exceptional induced-tree theorem.
 -/
 
 open Classical
 open SimpleGraph
+open WrittenOnTheWallII.GraphConjecture146
 
 namespace WOW146
 
+variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
+
+/-- Written on the Wall II, Conjecture 146, with the exact upstream signature. -/
+theorem conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj]
+    (h : G.Connected) (hrad : 0 < graphSquareRadius G) :
+    2 * eccSet G (maxEccentricityVertices G : Set α) ≤
+      largestInducedTreeSize G * graphSquareRadius G := by
+  exact conjecture146_of_exceptional_case G h hrad (exceptional_case G h)
+
 #check WrittenOnTheWallII.GraphConjecture146.conjecture146
-#check WrittenOnTheWallII.GraphConjecture146.graphSquareRadius
-#check SimpleGraph.graphSquare_dist
-#check SimpleGraph.graphSquareRadius_eq
-
--- Global bounds established for Conjecture 146.
-#check SimpleGraph.Walk.induce_support_toFinset_isTree_of_length_eq_dist
-#check SimpleGraph.finset_card_le_largestInducedTreeSize
-#check SimpleGraph.diam_succ_le_largestInducedTreeSize
-#check SimpleGraph.eccSet_periphery_add_one_le_diam
-#check SimpleGraph.radius_toNat_le_diam
-#check SimpleGraph.diam_le_two_mul_radius_toNat
-
--- Complete integration, parameterized only by the pending issue #4 theorem.
-#check WOW146.conjecture146_of_exceptional_case
+#check WOW146.conjecture146
+#print axioms WOW146.conjecture146
 
 end WOW146
