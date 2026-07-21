@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import WOW146.GraphSquareRadius
-import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+import WOW146.GlobalBounds
 
 /-!
 # Written on the Wall II — Conjecture 146
@@ -36,23 +35,19 @@ namespace WOW146
 #check SimpleGraph.graphSquare_dist
 #check SimpleGraph.graphSquareRadius_eq
 
+-- Global bounds established for Conjecture 146.
+#check SimpleGraph.Walk.induce_support_toFinset_isTree_of_length_eq_dist
+#check SimpleGraph.finset_card_le_largestInducedTreeSize
+#check SimpleGraph.diam_succ_le_largestInducedTreeSize
+#check SimpleGraph.eccSet_periphery_add_one_le_diam
+#check SimpleGraph.radius_toNat_le_diam
+#check SimpleGraph.diam_le_two_mul_radius_toNat
+
 -- Reusable, sorry-free infrastructure from the completed WOWII 142 proof.
 #check SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice
 #check SimpleGraph.eccSet_maxEccentricityVertices_add_one_le_diam_splice
 #check SimpleGraph.maxEccentricityVertices_nonempty_splice
 #check SimpleGraph.exists_eccSet_witness_splice
 #check SimpleGraph.IsTree.induce_insert_of_unique_adj
-
--- Metric and walk APIs confirmed at the pinned revision.
-#check SimpleGraph.exists_dist_eq_diam
-#check SimpleGraph.exists_eccent_eq_radius
-#check SimpleGraph.ediam_le_two_mul_radius
-#check SimpleGraph.radius_ne_top_iff
-#check SimpleGraph.Connected.exists_walk_length_eq_dist
-#check SimpleGraph.exists_walk_of_dist_ne_zero
-#check SimpleGraph.dist_le
-#check SimpleGraph.dist_eq_one_iff_adj
-#check SimpleGraph.Walk.IsPath
-#check SimpleGraph.Walk.support
 
 end WOW146
