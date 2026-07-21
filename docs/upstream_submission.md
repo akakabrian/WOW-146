@@ -2,10 +2,14 @@
 
 ## Status
 
-The metric identity, square-radius formula, global bounds, and complete
-arithmetic reduction are kernel-checked. The only pending dependency is the
-exceptional induced-tree theorem from issue #4. Do **not** mark the upstream
-conjecture solved until that theorem is merged and the final axiom audit passes.
+The metric identity, square-radius formula, global bounds, exceptional induced-tree theorem, and exact top-level theorem are kernel-checked in this repository.
+
+The immutable proof commit is:
+
+- `0b750ac1ac987d7085fff796b4ea91a0cf4ecd70`
+- https://github.com/akakabrian/WOW-146/commit/0b750ac1ac987d7085fff796b4ea91a0cf4ecd70
+
+Issue #6 remains the independent audit and finite-regression gate before submitting upstream or merging the integration PR to `main`.
 
 ## Mathematical summary
 
@@ -35,28 +39,30 @@ already give `2*p <= t`. The only remaining corner is
 r = 2, d = 4, p = 3,
 ```
 
-where issue #4 supplies `6 <= t`.
+where `WOW146.exceptional_case` supplies `6 <= t`.
 
-## Upstream theorem body
+## Exact local theorem
 
-After the exceptional theorem is merged, the upstream theorem body should be
-a direct application of the integration theorem:
+```lean
+theorem WOW146.conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj]
+    (h : G.Connected) (hrad : 0 < graphSquareRadius G) :
+    2 * eccSet G (maxEccentricityVertices G : Set α) ≤
+      largestInducedTreeSize G * graphSquareRadius G
+```
+
+Its proof is:
 
 ```lean
 by
   exact WOW146.conjecture146_of_exceptional_case G h hrad
-    (fun hr hd hp => WOW146.exceptional_case G h hr hd hp)
+    (WOW146.exceptional_case G h)
 ```
 
-The final exceptional theorem name and argument order must be substituted from
-the merged issue #4 implementation.
+## Upstream target-file change
 
-## Annotation update
+The submission bundle under `upstream/` contains the target-file patch and porting map for the supporting proof modules. After those modules are copied into the upstream tree, the conjecture body becomes a direct application of the ported proof theorem.
 
-Only after the final proof is merged and independently audited, change the
-problem annotation from `research open` to `research solved`. Include a link to
-an immutable commit containing the sorry-free proof rather than a moving branch
-URL.
+The problem annotation should change from `research open` to `research solved` only in the actual upstream submission, after issue #6 signs off. The upstream PR description should link the immutable proof commit above rather than a moving branch URL.
 
 ## AI-assistance disclosure
 
@@ -70,13 +76,13 @@ Suggested disclosure:
 > reported in the pull request. Human maintainers remain responsible for the
 > submitted claims and review decisions.
 
-## Final verification checklist
+## Verification checklist
 
-- [ ] Issue #4 exceptional theorem merged.
-- [ ] Exact theorem signature unchanged.
-- [ ] No `sorry`, `admit`, `native_decide`, or project-specific axiom.
-- [ ] `lake env lean -DwarningAsError=true WOW146.lean` passes.
-- [ ] `lake --wfail build` passes.
-- [ ] `#print axioms` contains only standard Lean axioms.
-- [ ] Immutable proof commit linked in the upstream annotation/PR.
+- [x] Issue #4 exceptional theorem merged.
+- [x] Exact theorem signature unchanged.
+- [x] No `sorry`, `admit`, `native_decide`, or project-specific axiom in the local proof.
+- [x] `lake env lean -DwarningAsError=true WOW146.lean` passes.
+- [x] `lake --wfail build` passes.
+- [x] `#print axioms` contains only standard Lean axioms.
+- [x] Immutable proof commit recorded.
 - [ ] Independent audit issue #6 completed.
