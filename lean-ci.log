@@ -1,12 +1,12 @@
 $ lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146 FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
 Build completed successfully (8039 jobs).
 $ lake build WOW146.GraphConjecture146Proof
-ℹ [8035/8044] Built WOW146.GraphSquareMetric (2.9s)
+ℹ [8041/8045] Built WOW146.GraphSquareMetric (2.0s)
 info: WOW146/GraphSquareMetric.lean:121:0: 'SimpleGraph.graphSquare_dist' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8042/8044] Built WOW146.GraphSquareRadius (4.6s)
+ℹ [8042/8045] Built WOW146.GraphSquareRadius (5.3s)
 info: WOW146/GraphSquareRadius.lean:125:0: 'SimpleGraph.graphSquare_eccent_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GraphSquareRadius.lean:126:0: 'SimpleGraph.graphSquareRadius_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8043/8044] Built WOW146.GlobalBounds (4.9s)
+ℹ [8043/8045] Built WOW146.GlobalBounds (5.6s)
 info: WOW146/GlobalBounds.lean:137:0: 'SimpleGraph.Walk.induce_support_toFinset_isTree_of_length_eq_dist' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
@@ -15,7 +15,9 @@ info: WOW146/GlobalBounds.lean:139:0: 'SimpleGraph.diam_succ_le_largestInducedTr
 info: WOW146/GlobalBounds.lean:140:0: 'SimpleGraph.eccSet_periphery_add_one_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:141:0: 'SimpleGraph.radius_toNat_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:142:0: 'SimpleGraph.diam_le_two_mul_radius_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8044/8044] Built WOW146.GraphConjecture146Proof (3.8s)
+ℹ [8044/8045] Built WOW146.Reduction (5.5s)
+info: WOW146/Reduction.lean:91:0: 'WOW146.conjecture146_of_exceptional_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8045/8045] Built WOW146.GraphConjecture146Proof (4.5s)
 info: WOW146/GraphConjecture146Proof.lean:33:0: WrittenOnTheWallII.GraphConjecture146.conjecture146.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α] [Nontrivial α]
   (G : SimpleGraph α) [DecidableRel G.Adj] (h : G.Connected)
   (hrad : 0 < WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G) :
@@ -38,27 +40,22 @@ info: WOW146/GraphConjecture146Proof.lean:43:0: SimpleGraph.radius_toNat_le_diam
   (hG : G.Connected) : G.radius.toNat ≤ G.diam
 info: WOW146/GraphConjecture146Proof.lean:44:0: SimpleGraph.diam_le_two_mul_radius_toNat.{u_1} {α : Type u_1} [Fintype α] [Nontrivial α] {G : SimpleGraph α}
   (hG : G.Connected) : G.diam ≤ 2 * G.radius.toNat
-info: WOW146/GraphConjecture146Proof.lean:47:0: SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α]
-  {G : SimpleGraph α} [Nonempty α] (hconn : G.Connected) : G.diam + 1 ≤ G.largestInducedTreeSize
-info: WOW146/GraphConjecture146Proof.lean:48:0: SimpleGraph.eccSet_maxEccentricityVertices_add_one_le_diam_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α}
-  [Nontrivial α] (hconn : G.Connected) (hfpos : 0 < G.eccSet G.maxEccentricityVertices) :
-  G.eccSet G.maxEccentricityVertices + 1 ≤ G.diam
-info: WOW146/GraphConjecture146Proof.lean:49:0: SimpleGraph.maxEccentricityVertices_nonempty_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α} [Nonempty α] :
-  G.maxEccentricityVertices.Nonempty
-info: WOW146/GraphConjecture146Proof.lean:50:0: SimpleGraph.exists_eccSet_witness_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α} [Nonempty α] (S : Set α) :
-  ∃ v, G.distToSet v S = G.eccSet S
-info: WOW146/GraphConjecture146Proof.lean:51:0: SimpleGraph.IsTree.induce_insert_of_unique_adj.{u_1} {α : Type u_1} [DecidableEq α] {G : SimpleGraph α} {s : Finset α}
-  {z a : α} (hT : (induce (↑s) G).IsTree) (_hz : z ∉ s) (ha : a ∈ s) (hza : G.Adj z a)
-  (huniq : ∀ ⦃b : α⦄, b ∈ s → G.Adj z b → b = a) : (induce (↑(insert z s)) G).IsTree
-Build completed successfully (8044 jobs).
+info: WOW146/GraphConjecture146Proof.lean:47:0: WOW146.conjecture146_of_exceptional_case.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α] [Nontrivial α]
+  (G : SimpleGraph α) [DecidableRel G.Adj] (hG : G.Connected)
+  (hrad : 0 < WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G)
+  (hExceptional :
+    G.radius.toNat = 2 → G.diam = 4 → G.eccSet G.maxEccentricityVertices = 3 → 6 ≤ G.largestInducedTreeSize) :
+  2 * G.eccSet G.maxEccentricityVertices ≤
+    G.largestInducedTreeSize * WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G
+Build completed successfully (8045 jobs).
 $ lake env lean -DwarningAsError=true WOW146.lean
 $ lake --wfail build
-ℹ [1767/1783] Replayed WOW146.GraphSquareMetric
+ℹ [1767/1861] Replayed WOW146.GraphSquareMetric
 info: WOW146/GraphSquareMetric.lean:121:0: 'SimpleGraph.graphSquare_dist' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8042/8046] Replayed WOW146.GraphSquareRadius
+ℹ [8042/8047] Replayed WOW146.GraphSquareRadius
 info: WOW146/GraphSquareRadius.lean:125:0: 'SimpleGraph.graphSquare_eccent_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GraphSquareRadius.lean:126:0: 'SimpleGraph.graphSquareRadius_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8043/8046] Replayed WOW146.GlobalBounds
+ℹ [8043/8047] Replayed WOW146.GlobalBounds
 info: WOW146/GlobalBounds.lean:137:0: 'SimpleGraph.Walk.induce_support_toFinset_isTree_of_length_eq_dist' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
@@ -67,7 +64,9 @@ info: WOW146/GlobalBounds.lean:139:0: 'SimpleGraph.diam_succ_le_largestInducedTr
 info: WOW146/GlobalBounds.lean:140:0: 'SimpleGraph.eccSet_periphery_add_one_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:141:0: 'SimpleGraph.radius_toNat_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:142:0: 'SimpleGraph.diam_le_two_mul_radius_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8044/8046] Replayed WOW146.GraphConjecture146Proof
+ℹ [8044/8047] Replayed WOW146.Reduction
+info: WOW146/Reduction.lean:91:0: 'WOW146.conjecture146_of_exceptional_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8045/8047] Replayed WOW146.GraphConjecture146Proof
 info: WOW146/GraphConjecture146Proof.lean:33:0: WrittenOnTheWallII.GraphConjecture146.conjecture146.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α] [Nontrivial α]
   (G : SimpleGraph α) [DecidableRel G.Adj] (h : G.Connected)
   (hrad : 0 < WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G) :
@@ -90,19 +89,14 @@ info: WOW146/GraphConjecture146Proof.lean:43:0: SimpleGraph.radius_toNat_le_diam
   (hG : G.Connected) : G.radius.toNat ≤ G.diam
 info: WOW146/GraphConjecture146Proof.lean:44:0: SimpleGraph.diam_le_two_mul_radius_toNat.{u_1} {α : Type u_1} [Fintype α] [Nontrivial α] {G : SimpleGraph α}
   (hG : G.Connected) : G.diam ≤ 2 * G.radius.toNat
-info: WOW146/GraphConjecture146Proof.lean:47:0: SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α]
-  {G : SimpleGraph α} [Nonempty α] (hconn : G.Connected) : G.diam + 1 ≤ G.largestInducedTreeSize
-info: WOW146/GraphConjecture146Proof.lean:48:0: SimpleGraph.eccSet_maxEccentricityVertices_add_one_le_diam_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α}
-  [Nontrivial α] (hconn : G.Connected) (hfpos : 0 < G.eccSet G.maxEccentricityVertices) :
-  G.eccSet G.maxEccentricityVertices + 1 ≤ G.diam
-info: WOW146/GraphConjecture146Proof.lean:49:0: SimpleGraph.maxEccentricityVertices_nonempty_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α} [Nonempty α] :
-  G.maxEccentricityVertices.Nonempty
-info: WOW146/GraphConjecture146Proof.lean:50:0: SimpleGraph.exists_eccSet_witness_splice.{u_1} {α : Type u_1} [Fintype α] {G : SimpleGraph α} [Nonempty α] (S : Set α) :
-  ∃ v, G.distToSet v S = G.eccSet S
-info: WOW146/GraphConjecture146Proof.lean:51:0: SimpleGraph.IsTree.induce_insert_of_unique_adj.{u_1} {α : Type u_1} [DecidableEq α] {G : SimpleGraph α} {s : Finset α}
-  {z a : α} (hT : (induce (↑s) G).IsTree) (_hz : z ∉ s) (ha : a ∈ s) (hza : G.Adj z a)
-  (huniq : ∀ ⦃b : α⦄, b ∈ s → G.Adj z b → b = a) : (induce (↑(insert z s)) G).IsTree
-✔ [8045/8046] Built WOW146 (3.8s)
-Build completed successfully (8046 jobs).
+info: WOW146/GraphConjecture146Proof.lean:47:0: WOW146.conjecture146_of_exceptional_case.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α] [Nontrivial α]
+  (G : SimpleGraph α) [DecidableRel G.Adj] (hG : G.Connected)
+  (hrad : 0 < WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G)
+  (hExceptional :
+    G.radius.toNat = 2 → G.diam = 4 → G.eccSet G.maxEccentricityVertices = 3 → 6 ≤ G.largestInducedTreeSize) :
+  2 * G.eccSet G.maxEccentricityVertices ≤
+    G.largestInducedTreeSize * WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G
+✔ [8046/8047] Built WOW146 (4.5s)
+Build completed successfully (8047 jobs).
 
 EXIT_STATUS=0
