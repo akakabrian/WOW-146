@@ -1,0 +1,13 @@
+name = "wow_146"
+version = "0.1.0"
+defaultTargets = ["WOW146"]
+
+# This commit contains the current Formal Conjectures statement together with
+# reusable, sorry-free induced-tree/periphery lemmas developed for WOWII 142.
+[[require]]
+name = "formal_conjectures"
+git = "https://github.com/AlperTheKing/formal-conjectures.git"
+rev = "46bf39015f5c3c3ba3bfcf9f752b4b1e49b584ac"
+
+[[lean_lib]]
+name = "WOW146"
