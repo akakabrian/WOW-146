@@ -5,13 +5,15 @@ on:
     branches:
       - main
       - 'proof/**'
+    paths-ignore:
+      - lean-ci.log
   pull_request:
     branches:
       - main
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -19,6 +21,8 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install elan
         run: |
@@ -28,17 +32,43 @@ jobs:
       - name: Resolve dependencies
         run: lake update
 
+      - name: Restore Formal Conjectures build cache
+        uses: actions/cache@v4
+        with:
+          path: .lake/packages/formal_conjectures/.lake/build
+          key: wow146-formal-build-${{ hashFiles('lean-toolchain', 'lakefile.toml') }}
+
       - name: Download Mathlib cache
         run: lake exe cache get
 
-      - name: Build imported Formal Conjectures modules
+      - name: Verify and capture compiler log
+        id: verify
+        shell: bash
         run: |
-          lake build \
-            FormalConjectures.WrittenOnTheWallII.GraphConjecture146 \
-            FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+          set +e
+          {
+            echo '$ lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146 FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof'
+            lake build \
+              FormalConjectures.WrittenOnTheWallII.GraphConjecture146 \
+              FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+            echo '$ lake env lean -DwarningAsError=true WOW146.lean'
+            lake env lean -DwarningAsError=true WOW146.lean
+            echo '$ lake --wfail build'
+            lake --wfail build
+          } > lean-ci.log 2>&1
+          status=$?
+          echo "exit_status=$status" >> "$GITHUB_OUTPUT"
+          printf '\nEXIT_STATUS=%s\n' "$status" >> lean-ci.log
+          exit 0
 
-      - name: Compile root proof target with warnings as errors
-        run: lake env lean -DwarningAsError=true WOW146.lean
+      - name: Publish compiler log
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -f lean-ci.log
+          git commit -m "ci: publish Lean compiler log" || true
+          git push origin HEAD:${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}
 
-      - name: Build project
-        run: lake --wfail build
+      - name: Fail job when Lean failed
+        if: steps.verify.outputs.exit_status != '0'
+        run: exit 1
