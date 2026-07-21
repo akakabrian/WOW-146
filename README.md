@@ -36,6 +36,17 @@ theorem conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj]
 
 See [`docs/conjecture146_verification.md`](docs/conjecture146_verification.md) for the audited proof and formalization plan.
 
+**Infrastructure clarification.** The pinned Mathlib/Formal Conjectures stack already contains graph radius, eccentricity, `graphSquare`, and `largestInducedTreeSize`. The missing work is the square-distance theorem, convenient explicit induced-tree witness lemmas, and the exceptional-case construction—not the primitive definitions themselves.
+
+## Coordination
+
+- [Goal and definition of done](../../issues/1)
+- [Agent work packages](AGENTS.md)
+- [Draft integration PR](../../pull/7)
+- Integration branch: `proof/wowii-146`
+
+Agents A, B, and C may work in parallel; Agent D integrates; Agent E independently verifies.
+
 ## Build
 
 The project is pinned to Lean 4.27.0 and to a Formal Conjectures proof branch containing reusable induced-tree and periphery lemmas.
@@ -44,6 +55,7 @@ The project is pinned to Lean 4.27.0 and to a Formal Conjectures proof branch co
 lake update
 lake exe cache get
 lake env lean -DwarningAsError=true WOW146.lean
+lake --wfail build
 ```
 
 ## Repository layout
@@ -52,6 +64,7 @@ lake env lean -DwarningAsError=true WOW146.lean
 WOW146.lean                              root build target
 WOW146/GraphConjecture146Proof.lean      proof module
 AGENTS.md                                parallel work packages
+PROGRESS.md                              integration-branch workboard
 .github/workflows/lean.yml               kernel-checking CI
 docs/conjecture146_verification.md       audited human proof
 ```
