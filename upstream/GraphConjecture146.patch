@@ -1,5 +1,4 @@
 diff --git a/FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean b/FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean
-index 117348f..0000000 100644
 --- a/FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean
 +++ b/FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean
 @@ -17,6 +17,7 @@ limitations under the License.
