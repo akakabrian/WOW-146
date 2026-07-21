@@ -1,12 +1,12 @@
 $ lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146 FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
 Build completed successfully (8039 jobs).
 $ lake build WOW146.GraphConjecture146Proof
-ℹ [8041/8045] Built WOW146.GraphSquareMetric (2.0s)
+ℹ [8022/8045] Built WOW146.GraphSquareMetric (2.0s)
 info: WOW146/GraphSquareMetric.lean:121:0: 'SimpleGraph.graphSquare_dist' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8042/8045] Built WOW146.GraphSquareRadius (5.3s)
+ℹ [8042/8045] Built WOW146.GraphSquareRadius (4.7s)
 info: WOW146/GraphSquareRadius.lean:125:0: 'SimpleGraph.graphSquare_eccent_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GraphSquareRadius.lean:126:0: 'SimpleGraph.graphSquareRadius_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8043/8045] Built WOW146.GlobalBounds (5.6s)
+ℹ [8043/8045] Built WOW146.GlobalBounds (4.0s)
 info: WOW146/GlobalBounds.lean:137:0: 'SimpleGraph.Walk.induce_support_toFinset_isTree_of_length_eq_dist' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
@@ -15,9 +15,9 @@ info: WOW146/GlobalBounds.lean:139:0: 'SimpleGraph.diam_succ_le_largestInducedTr
 info: WOW146/GlobalBounds.lean:140:0: 'SimpleGraph.eccSet_periphery_add_one_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:141:0: 'SimpleGraph.radius_toNat_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:142:0: 'SimpleGraph.diam_le_two_mul_radius_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8044/8045] Built WOW146.Reduction (5.5s)
+ℹ [8044/8045] Built WOW146.Reduction (4.9s)
 info: WOW146/Reduction.lean:91:0: 'WOW146.conjecture146_of_exceptional_case' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8045/8045] Built WOW146.GraphConjecture146Proof (4.5s)
+ℹ [8045/8045] Built WOW146.GraphConjecture146Proof (3.9s)
 info: WOW146/GraphConjecture146Proof.lean:33:0: WrittenOnTheWallII.GraphConjecture146.conjecture146.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α] [Nontrivial α]
   (G : SimpleGraph α) [DecidableRel G.Adj] (h : G.Connected)
   (hrad : 0 < WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G) :
@@ -49,13 +49,14 @@ info: WOW146/GraphConjecture146Proof.lean:47:0: WOW146.conjecture146_of_exceptio
     G.largestInducedTreeSize * WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G
 Build completed successfully (8045 jobs).
 $ lake env lean -DwarningAsError=true WOW146.lean
+WOW146.lean:1:0: error: object file '/home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean/WOW146/ExceptionalTheorem.olean' of module WOW146.ExceptionalTheorem does not exist
 $ lake --wfail build
-ℹ [1767/1861] Replayed WOW146.GraphSquareMetric
+ℹ [1767/2012] Replayed WOW146.GraphSquareMetric
 info: WOW146/GraphSquareMetric.lean:121:0: 'SimpleGraph.graphSquare_dist' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8042/8047] Replayed WOW146.GraphSquareRadius
+ℹ [8042/8050] Replayed WOW146.GraphSquareRadius
 info: WOW146/GraphSquareRadius.lean:125:0: 'SimpleGraph.graphSquare_eccent_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GraphSquareRadius.lean:126:0: 'SimpleGraph.graphSquareRadius_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8043/8047] Replayed WOW146.GlobalBounds
+ℹ [8043/8050] Replayed WOW146.GlobalBounds
 info: WOW146/GlobalBounds.lean:137:0: 'SimpleGraph.Walk.induce_support_toFinset_isTree_of_length_eq_dist' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
@@ -64,9 +65,9 @@ info: WOW146/GlobalBounds.lean:139:0: 'SimpleGraph.diam_succ_le_largestInducedTr
 info: WOW146/GlobalBounds.lean:140:0: 'SimpleGraph.eccSet_periphery_add_one_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:141:0: 'SimpleGraph.radius_toNat_le_diam' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: WOW146/GlobalBounds.lean:142:0: 'SimpleGraph.diam_le_two_mul_radius_toNat' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8044/8047] Replayed WOW146.Reduction
+ℹ [8044/8050] Replayed WOW146.Reduction
 info: WOW146/Reduction.lean:91:0: 'WOW146.conjecture146_of_exceptional_case' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8045/8047] Replayed WOW146.GraphConjecture146Proof
+ℹ [8045/8050] Replayed WOW146.GraphConjecture146Proof
 info: WOW146/GraphConjecture146Proof.lean:33:0: WrittenOnTheWallII.GraphConjecture146.conjecture146.{u_1} {α : Type u_1} [Fintype α] [DecidableEq α] [Nontrivial α]
   (G : SimpleGraph α) [DecidableRel G.Adj] (h : G.Connected)
   (hrad : 0 < WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G) :
@@ -96,7 +97,12 @@ info: WOW146/GraphConjecture146Proof.lean:47:0: WOW146.conjecture146_of_exceptio
     G.radius.toNat = 2 → G.diam = 4 → G.eccSet G.maxEccentricityVertices = 3 → 6 ≤ G.largestInducedTreeSize) :
   2 * G.eccSet G.maxEccentricityVertices ≤
     G.largestInducedTreeSize * WrittenOnTheWallII.GraphConjecture146.graphSquareRadius G
-✔ [8046/8047] Built WOW146 (4.5s)
-Build completed successfully (8047 jobs).
+✔ [8046/8050] Built WOW146.Metric (4.4s)
+✔ [8047/8050] Built WOW146.Exceptional (5.0s)
+ℹ [8048/8050] Built WOW146.ExceptionalTheorem (5.2s)
+info: WOW146/ExceptionalTheorem.lean:228:0: 'WOW146.exceptional_six_vertex_induced_tree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: WOW146/ExceptionalTheorem.lean:229:0: 'WOW146.exceptional_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [8049/8050] Built WOW146 (3.9s)
+Build completed successfully (8050 jobs).
 
 EXIT_STATUS=0
