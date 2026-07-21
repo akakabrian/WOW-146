@@ -4,11 +4,11 @@ Integration target: `proof/wowii-146` → `main`.
 
 | Work package | Issue | Status | Integration notes |
 |---|---:|---|---|
-| Square-graph distance and radius | #2 | Open | May proceed independently. |
-| Diameter, periphery, and induced-geodesic bounds | #3 | Open | Reuse pinned WOWII 142 infrastructure. |
-| Radius-2 exceptional induced-tree lemma | #4 | Open | Main graph-theoretic formalization. |
-| Top-level assembly and upstream patch | #5 | Blocked | Depends on #2–#4. |
-| Independent verification | #6 | Blocked | Begins after #5 integration. |
+| Square-graph distance and radius | #2 | Complete | Merged via PR #8; focused and full CI passed. |
+| Diameter, periphery, and induced-geodesic bounds | #3 | Complete | Merged via PR #10; focused and full CI passed. |
+| Radius-2 exceptional induced-tree lemma | #4 | In progress | Claude is formalizing the sole remaining graph-theoretic corner. |
+| Top-level assembly and upstream patch | #5 | In progress | Arithmetic reduction and submission notes are complete; exact wrapper awaits #4. |
+| Independent verification | #6 | Blocked | Begins after #4 is connected to the issue #5 wrapper. |
 
 ## Merge discipline
 
