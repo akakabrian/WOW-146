@@ -33,7 +33,7 @@ namespace SimpleGraph
 
 open Classical
 
-variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
+variable {α : Type*}
 variable {G : SimpleGraph α}
 
 /-- Every original edge is an edge of the square graph. -/
@@ -82,7 +82,7 @@ private lemma graphSquare_dist_le_half_walk
       | @cons u x v hux q =>
           cases q with
           | nil =>
-              have hs : (graphSquare G).Adj u x := adj_graphSquare_of_adj hux
+              have hs : (graphSquare G).Adj u v := adj_graphSquare_of_adj hux
               rw [dist_eq_one_iff_adj.mpr hs]
               norm_num
           | @cons x y v hxy r =>
