@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - agent-a-square-metric
+    paths-ignore:
+      - agent-a-ci.log
   pull_request:
     branches:
       - proof/wowii-146
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   metric:
@@ -18,6 +20,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install elan
         run: |
@@ -30,8 +34,39 @@ jobs:
       - name: Download Mathlib cache
         run: lake exe cache get
 
-      - name: Build graph-square metric module
-        run: lake build WOW146.GraphSquareMetric
+      - name: Check graph-square metric module
+        id: metric
+        shell: bash
+        run: |
+          set +e
+          {
+            echo '$ lake build WOW146.GraphSquareMetric'
+            lake build WOW146.GraphSquareMetric
+            echo '$ lake env lean -DwarningAsError=true WOW146/GraphSquareMetric.lean'
+            lake env lean -DwarningAsError=true WOW146/GraphSquareMetric.lean
+          } > agent-a-ci.log 2>&1
+          status=$?
+          printf '\nEXIT_STATUS=%s\n' "$status" >> agent-a-ci.log
+          cat agent-a-ci.log
+          echo "exit_status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
 
-      - name: Check warnings and axioms
-        run: lake env lean -DwarningAsError=true WOW146/GraphSquareMetric.lean
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-a-ci-${{ github.run_id }}
+          path: agent-a-ci.log
+
+      - name: Publish diagnostics on branch pushes
+        if: github.event_name == 'push'
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -f agent-a-ci.log
+          git commit -m "ci: publish Agent A diagnostics" || true
+          git push origin HEAD:${GITHUB_REF_NAME}
+
+      - name: Fail job when Lean failed
+        if: steps.metric.outputs.exit_status != '0'
+        run: exit 1
