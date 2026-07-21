@@ -14,7 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import FormalConjectures.WrittenOnTheWallII.GraphConjecture146
+import FormalConjecturesForMathlib.Combinatorics.SimpleGraph.VertexDistance
+import Mathlib.Combinatorics.SimpleGraph.Diam
 
 /-!
 # Metric of a graph square
