@@ -49,6 +49,8 @@ jobs:
             echo 'upstream_repository=AlperTheKing/formal-conjectures'
             echo 'upstream_base=b8b5208aa5d01f5f91c49ca516bf09cae8d93693'
             echo "standalone_source=$(git -C wow146 rev-parse HEAD)"
+            echo 'w142_prerequisite_commit=46bf39015f5c3c3ba3bfcf9f752b4b1e49b584ac'
+            echo 'w142_prerequisite_path=FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture142Proof.lean'
             echo 'proof_namespace=WrittenOnTheWallII.GraphConjecture146.Proof'
             echo 'target=FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean'
           } > wow146/upstream/upstream-port-manifest.txt
