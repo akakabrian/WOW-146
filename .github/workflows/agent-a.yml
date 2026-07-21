@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent-a-square-metric
+  pull_request:
+    branches:
+      - proof/wowii-146
   workflow_dispatch:
 
 permissions:
