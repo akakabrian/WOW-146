@@ -54,16 +54,33 @@ jobs:
             lake build \
               FormalConjectures.WrittenOnTheWallII.GraphConjecture146 \
               FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
-            echo '$ lake build WOW146.GraphConjecture146Proof'
-            lake build WOW146.GraphConjecture146Proof
-            echo '$ lake env lean -DwarningAsError=true WOW146.lean'
-            lake env lean -DwarningAsError=true WOW146.lean
-            echo '$ lake --wfail build'
-            lake --wfail build
+            base_status=$?
+            if [ "$base_status" -eq 0 ]; then
+              echo '$ lake --wfail build WOW146.GraphConjecture146Proof'
+              lake --wfail build WOW146.GraphConjecture146Proof
+              proof_status=$?
+            else
+              proof_status=$base_status
+            fi
+            if [ "$proof_status" -eq 0 ]; then
+              echo '$ lake env lean -DwarningAsError=true WOW146.lean'
+              lake env lean -DwarningAsError=true WOW146.lean
+              root_status=$?
+            else
+              root_status=$proof_status
+            fi
+            if [ "$root_status" -eq 0 ]; then
+              echo '$ lake --wfail build'
+              lake --wfail build
+              final_status=$?
+            else
+              final_status=$root_status
+            fi
+            printf '\nEXIT_STATUS=%s\n' "$final_status"
+            exit "$final_status"
           } > lean-ci.log 2>&1
           status=$?
           echo "exit_status=$status" >> "$GITHUB_OUTPUT"
-          printf '\nEXIT_STATUS=%s\n' "$status" >> lean-ci.log
           exit 0
 
       - name: Upload compiler log
