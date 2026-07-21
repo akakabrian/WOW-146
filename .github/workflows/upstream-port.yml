@@ -81,12 +81,16 @@ jobs:
             lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Regression
             echo '$ lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146'
             lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146
+            echo '$ lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Audit'
+            lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Audit
             echo '$ lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/GraphConjecture146Proof.lean'
             lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/GraphConjecture146Proof.lean
             echo '$ lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Regression.lean'
             lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Regression.lean
             echo '$ lake env lean -DwarningAsError=true FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean'
             lake env lean -DwarningAsError=true FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean
+            echo '$ lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Audit.lean'
+            lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Audit.lean
             echo '$ lake --wfail build'
             lake --wfail build
           } 2>&1 | tee ../wow146/upstream/upstream-build.log
