@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import WOW146.Metric
+import WOW146.ExceptionalTheorem
 
 /-!
 # Written on the Wall II — Conjecture 146
@@ -33,16 +33,6 @@ namespace WOW146
 
 variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
 
-/-- The sharp residual lemma. It is proved below by the audited finite
-induced-tree construction; it is declared here temporarily so the global
-arithmetic reduction can be kernel-checked independently. -/
-axiom exceptional_six_vertex_induced_tree
-    (G : SimpleGraph α) [DecidableRel G.Adj] (hG : G.Connected)
-    (hrho : graphSquareRadius G = 1)
-    (hd : G.diam = 4)
-    (hp : eccSet G (maxEccentricityVertices G : Set α) = 3) :
-    6 ≤ largestInducedTreeSize G
-
 /-- Written on the Wall II, Conjecture 146. -/
 theorem conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj] (hG : G.Connected)
     (hrad : 0 < graphSquareRadius G) :
@@ -52,7 +42,6 @@ theorem conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj] (hG : G.Connecte
   set d := G.diam
   set t := largestInducedTreeSize G
   set rho := graphSquareRadius G
-  change 2 * p ≤ t * rho
   have hrhoPos : 0 < rho := by simpa [rho] using hrad
   by_cases hpzero : p = 0
   · simp [hpzero]
