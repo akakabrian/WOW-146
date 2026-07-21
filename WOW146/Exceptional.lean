@@ -96,7 +96,8 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
   have hwzDist : G.dist w z = 1 := dist_eq_one_iff_adj.mpr hwz
   have hxwLe : G.dist x w ≤ 2 := dist_le_two_of_adj_adj G hxu huw
   have hxwLower : 2 ≤ G.dist x w := by
-    have htri := hG.dist_triangle (u := x) (v := w) (w := z)
+    have htri : G.dist x z ≤ G.dist x w + G.dist w z := hG.dist_triangle
+    rw [hxz, hwzDist] at htri
     omega
   have hxw : G.dist x w = 2 := by omega
   have hnzx : ¬G.Adj z x := not_adj_of_two_le_dist G (by omega)
@@ -105,6 +106,7 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
   have hnzu : ¬G.Adj z u := by
     intro hzu
     have hle := dist_le_two_of_adj_adj G hzu hxu.symm
+    have hle' : G.dist x z ≤ 2 := by simpa [dist_comm] using hle
     omega
   have hnwy : ¬G.Adj w y := by
     intro hwy
@@ -117,7 +119,7 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
   have hzxNe : z ≠ x := by
     intro h
     subst x
-    simpa using hxz
+    simp at hxz
   have hzuNe : z ≠ u := by
     intro h
     subst u
@@ -126,7 +128,7 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
   have hzyNe : z ≠ y := by
     intro h
     subst y
-    simpa using hzy
+    simp at hzy
   let p₀ : G.Walk x w := .cons hxu (.cons huw .nil)
   have hp₀ : p₀.length = G.dist x w := by simp [p₀, hxw]
   have hp₀Path : p₀.IsPath := p₀.isPath_of_length_eq_dist hp₀
@@ -157,8 +159,8 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
       intro h
       subst a
       exact hnzy hay
-    apply p.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf hp hlen
-      (c := w) (z := z)
+    apply WOW146.Walk.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf
+      p hp hlen (c := w) (z := z)
     · simp [p]
     · simp [p, hzxNe, hzuNe, hzwNe, hzaNe, hzyNe]
     · exact hwz.symm
@@ -173,6 +175,7 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
   · have hnbx : ¬G.Adj b x := by
       intro hbx
       have hle := dist_le_two_of_adj_adj G hzb hbx
+      have hle' : G.dist x z ≤ 2 := by simpa [dist_comm] using hle
       omega
     have hbxNe : b ≠ x := by
       intro h
@@ -190,8 +193,8 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
         intro h
         subst a
         exact hnzy hay
-      apply p.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf hp hlen
-        (c := b) (z := z)
+      apply WOW146.Walk.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf
+        p hp hlen (c := b) (z := z)
       · simp [p]
       · simp [p, hzxNe, hzuNe, hzb.ne, hzaNe, hzyNe]
       · exact hzb
@@ -211,8 +214,8 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
           intro h
           subst a
           exact hnzy hay
-        apply p.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf hp hlen
-          (c := w) (z := z)
+        apply WOW146.Walk.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf
+          p hp hlen (c := w) (z := z)
         · simp [p]
         · simp [p, hzxNe, hzuNe, hzwNe, hzaNe, hzyNe]
         · exact hwz.symm
@@ -241,7 +244,7 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
           have hyxNe : y ≠ x := by
             intro h
             subst y
-            simpa using hxy
+            simp at hxy
           have hyuNe : y ≠ u := by
             intro h
             subst y
