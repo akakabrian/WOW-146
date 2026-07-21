@@ -6,17 +6,25 @@ The standalone project imports the conjecture statement to reuse its
 statement would create a cycle. The upstream port therefore proves an equivalent
 raw theorem using `(graphSquare G).radius.toNat`; the conjecture file unfolds its
 local abbreviation before applying the proof.
+
+The audited proof also uses general induced-tree and periphery lemmas developed
+in the verified W142 proof branch. Those lemmas are not present on current
+upstream `main`, so the port carries that already kernel-checked prerequisite
+module from its immutable source commit.
 """
 
 from __future__ import annotations
 
 import argparse
 import re
-import shutil
 import subprocess
 from pathlib import Path
 
 UPSTREAM_REV = "b8b5208aa5d01f5f91c49ca516bf09cae8d93693"
+W142_REV = "46bf39015f5c3c3ba3bfcf9f752b4b1e49b584ac"
+W142_REL = Path(
+    "FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture142Proof.lean"
+)
 PREFIX = "FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146"
 DEST_REL = Path("FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146")
 SOURCE_MODULES = [
@@ -30,10 +38,6 @@ SOURCE_MODULES = [
     "GraphConjecture146Proof",
     "Regression",
 ]
-
-
-def run(*args: str, cwd: Path | None = None) -> None:
-    subprocess.run(args, cwd=cwd, check=True)
 
 
 def common_transform(text: str) -> str:
@@ -102,10 +106,6 @@ def transform_proof(text: str) -> str:
     return text
 
 
-def transform_regression(text: str) -> str:
-    return text
-
-
 def transform_module(name: str, text: str) -> str:
     text = common_transform(text)
     transforms = {
@@ -115,13 +115,24 @@ def transform_module(name: str, text: str) -> str:
         "ExceptionalTheorem": transform_exceptional_theorem,
         "Reduction": transform_reduction,
         "GraphConjecture146Proof": transform_proof,
-        "Regression": transform_regression,
     }
     if name in transforms:
         text = transforms[name](text)
     if "import WOW146." in text or "graphSquareRadius G" in text:
         raise RuntimeError(f"unported standalone reference remains in {name}")
     return text
+
+
+def restore_w142_prerequisite(upstream: Path) -> None:
+    destination = upstream / W142_REL
+    if destination.exists():
+        return
+    content = subprocess.check_output(
+        ["git", "show", f"{W142_REV}:{W142_REL.as_posix()}"],
+        cwd=upstream,
+    )
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(content)
 
 
 def patch_target(target: Path) -> None:
@@ -164,6 +175,8 @@ def main() -> int:
     if actual_rev != args.expect_rev:
         raise RuntimeError(f"expected upstream {args.expect_rev}, found {actual_rev}")
 
+    restore_w142_prerequisite(upstream)
+
     destination = upstream / DEST_REL
     destination.mkdir(parents=True, exist_ok=True)
     for name in SOURCE_MODULES:
@@ -178,7 +191,8 @@ def main() -> int:
         diff = subprocess.check_output(["git", "diff", "--binary"], cwd=upstream)
         args.patch.write_bytes(diff)
 
-    print(f"Ported {len(SOURCE_MODULES)} modules into {upstream}")
+    print(f"Ported {len(SOURCE_MODULES)} WOWII 146 modules into {upstream}")
+    print(f"Restored W142 prerequisite from {W142_REV}")
     print(f"Upstream base: {actual_rev}")
     return 0
 
