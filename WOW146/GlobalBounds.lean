@@ -16,6 +16,8 @@ limitations under the License.
 
 import WOW146.GraphSquareRadius
 import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+import Mathlib.Combinatorics.SimpleGraph.CycleGraph
+import Mathlib.Combinatorics.SimpleGraph.Star
 
 /-!
 # Global bounds for WOWII Conjecture 146
@@ -107,6 +109,26 @@ lemma diam_le_two_mul_radius_toNat (hG : G.Connected) :
     WithTop.mul_ne_top (ENat.coe_ne_top 2) hr
   have h := ENat.toNat_le_toNat (ediam_le_two_mul_radius (G := G)) hmul
   simpa [diam] using h
+
+section Regression
+
+example : (pathGraph 5).diam + 1 ≤ largestInducedTreeSize (pathGraph 5) := by
+  apply diam_succ_le_largestInducedTreeSize
+  simpa using pathGraph_connected 4
+
+example :
+    eccSet (cycleGraph 6) (maxEccentricityVertices (cycleGraph 6) : Set (Fin 6)) + 1 ≤
+      (cycleGraph 6).diam := by
+  apply eccSet_periphery_add_one_le_diam
+  simpa using cycleGraph_connected 5
+
+example : (⊤ : SimpleGraph (Fin 4)).radius.toNat ≤ (⊤ : SimpleGraph (Fin 4)).diam := by
+  exact radius_toNat_le_diam connected_top
+
+example : (starGraph (0 : Fin 5)).diam ≤ 2 * (starGraph (0 : Fin 5)).radius.toNat := by
+  exact diam_le_two_mul_radius_toNat (connected_starGraph 0)
+
+end Regression
 
 #print axioms Walk.induce_support_toFinset_isTree_of_length_eq_dist
 #print axioms finset_card_le_largestInducedTreeSize
