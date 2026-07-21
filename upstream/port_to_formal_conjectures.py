@@ -21,13 +21,12 @@ SOURCE_MODULES = [
 
 
 def moduleize(text: str) -> str:
-    """Convert a traditional Lean file to the upstream public-module format."""
     if re.search(r"(?m)^module\s*$", text):
         return text
     lines = text.splitlines()
     import_indices = [i for i, line in enumerate(lines) if line.startswith("import ")]
     if not import_indices:
-        raise RuntimeError("file has no import block to moduleize")
+        raise RuntimeError("file has no import block")
     first_import = import_indices[0]
     lines.insert(first_import, "module")
     for i in range(first_import + 1, len(lines)):
@@ -50,7 +49,11 @@ def common_transform(text: str) -> str:
                         "https://www.apache.org/licenses/LICENSE-2.0")
     for module in SOURCE_MODULES:
         text = text.replace(f"import WOW146.{module}", f"import {PREFIX}.{module}")
-    return text.replace("WOW146", "WrittenOnTheWallII.GraphConjecture146.Proof")
+    text = text.replace("WOW146", "WrittenOnTheWallII.GraphConjecture146.Proof")
+    # Module files cannot contain `#print axioms`; keep all audit commands in Audit.lean.
+    text = re.sub(r"(?m)^#print axioms .*\n", "", text)
+    text = re.sub(r"(?m)^#check .*\n", "", text)
+    return text
 
 
 def transform_graph_square_radius(text: str) -> str:
@@ -63,8 +66,7 @@ def transform_graph_square_radius(text: str) -> str:
         r"  unfold graphSquareRadius\n"
         r"  exact graphSquare_radius_toNat hG\n",
         "\n", text, flags=re.DOTALL)
-    return text.replace("#print axioms graphSquareRadius_eq",
-                        "#print axioms graphSquare_radius_toNat")
+    return text
 
 
 def transform_metric(text: str) -> str:
@@ -90,8 +92,7 @@ def transform_reduction(text: str) -> str:
 
 def transform_proof(text: str) -> str:
     text = text.replace("open WrittenOnTheWallII.GraphConjecture146\n", "")
-    text = text.replace("graphSquareRadius G", "(graphSquare G).radius.toNat")
-    return re.sub(r"\n#check WrittenOnTheWallII\.GraphConjecture146\.conjecture146\n", "\n", text)
+    return text.replace("graphSquareRadius G", "(graphSquare G).radius.toNat")
 
 
 def transform_module(name: str, text: str) -> str:
@@ -154,6 +155,19 @@ def patch_target(target: Path) -> None:
     target.write_text(text.replace(old, new, 1))
 
 
+def write_audit(destination: Path) -> None:
+    destination.write_text(f'''import FormalConjectures.WrittenOnTheWallII.GraphConjecture146
+import {PREFIX}.Regression
+
+#check WrittenOnTheWallII.GraphConjecture146.conjecture146
+#check WrittenOnTheWallII.GraphConjecture146.Proof.conjecture146
+#print axioms WrittenOnTheWallII.GraphConjecture146.conjecture146
+#print axioms WrittenOnTheWallII.GraphConjecture146.Proof.conjecture146
+#print axioms WrittenOnTheWallII.GraphConjecture146.Proof.exceptional_case
+#print axioms WrittenOnTheWallII.GraphConjecture146.Proof.Regression.reg_exceptional
+''')
+
+
 def write_patch(upstream: Path, destination: Path) -> None:
     subprocess.run(["git", "add", "-N", W142_REL.as_posix(), DEST_REL.as_posix()],
                    cwd=upstream, check=True)
@@ -180,6 +194,7 @@ def main() -> int:
     for name in SOURCE_MODULES:
         original = (source / "WOW146" / f"{name}.lean").read_text()
         (destination / f"{name}.lean").write_text(transform_module(name, original))
+    write_audit(destination / "Audit.lean")
     patch_index(upstream / INDEX_REL)
     patch_target(upstream / "FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean")
     if args.patch:
