@@ -18,6 +18,13 @@ The conjecture asserts
 2p ≤ tρ.
 ```
 
+## Informal proof
+
+The polished human-readable proof is available as
+[`Conjecture146.pdf`](Conjecture146.pdf).  It documents the graph-square
+reduction and the exceptional induced-tree case, and deliberately makes no
+claim of an exhaustive finite-graph enumeration.
+
 The exact Formal Conjectures declaration is:
 
 ```lean
@@ -43,7 +50,7 @@ See [`docs/conjecture146_verification.md`](docs/conjecture146_verification.md) f
 
 ## Proof architecture
 
-The final theorem is assembled in `WOW146/GraphConjecture146Proof.lean` from two components:
+The exact theorem is assembled in `WOW146/Conjecture146.lean` from two components:
 
 1. `WOW146.conjecture146_of_exceptional_case`, which proves the full inequality from the single sharp case
    `(radius, diameter, periphery eccentricity) = (2, 4, 3)`;
@@ -89,7 +96,8 @@ The root proof module also runs:
 
 ```text
 WOW146.lean                              root build target
-WOW146/GraphConjecture146Proof.lean      exact final theorem
+WOW146/Conjecture146.lean                 exact final theorem
+Conjecture146.pdf                         polished informal proof
 WOW146/Reduction.lean                    global metric/arithmetic reduction
 WOW146/ExceptionalTheorem.lean           exceptional-case theorem
 WOW146/Exceptional.lean                  induced-tree constructions
