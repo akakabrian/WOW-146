@@ -20,10 +20,10 @@ import FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
 /-!
 # Written on the Wall II — Conjecture 146
 
-This module is the standalone proof harness. It records the exact upstream
-declaration and the reusable API available at the pinned dependency. The
-research theorem will be added only with a kernel-checked, warning-free proof
-of the unchanged statement.
+Standalone proof harness for the exact current Formal Conjectures statement.
+The declarations below are deliberately restricted to APIs already confirmed
+against the pinned dependency. New lemmas should be added in named modules and
+kept warning-free.
 -/
 
 open Classical
@@ -33,19 +33,15 @@ namespace WOW146
 
 #check WrittenOnTheWallII.GraphConjecture146.conjecture146
 #check WrittenOnTheWallII.GraphConjecture146.graphSquareRadius
-#check graphSquare
-#check eccSet
-#check maxEccentricityVertices
-#check largestInducedTreeSize
 
--- Reusable sorry-free infrastructure from the completed WOWII 142 proof.
+-- Reusable, sorry-free infrastructure from the completed WOWII 142 proof.
 #check SimpleGraph.diam_add_one_le_largestInducedTreeSize_splice
 #check SimpleGraph.eccSet_maxEccentricityVertices_add_one_le_diam_splice
 #check SimpleGraph.maxEccentricityVertices_nonempty_splice
 #check SimpleGraph.exists_eccSet_witness_splice
 #check SimpleGraph.IsTree.induce_insert_of_unique_adj
 
--- Metric and walk API expected in the proof.
+-- Metric and walk APIs confirmed at the pinned revision.
 #check SimpleGraph.exists_dist_eq_diam
 #check SimpleGraph.exists_eccent_eq_radius
 #check SimpleGraph.ediam_le_two_mul_radius
