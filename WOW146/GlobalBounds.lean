@@ -57,8 +57,11 @@ lemma Walk.induce_support_toFinset_isTree_of_length_eq_dist
         simpa using (List.nodup_cons.mp hfullPath.support_nodup).1
       have huniq : ∀ ⦃b : α⦄, b ∈ p.support.toFinset → G.Adj u b → b = v := by
         intro b hb hub
+        have hbSupport : b ∈ (p.cons huv).support := by
+          simp only [Walk.support_cons, List.mem_cons]
+          exact Or.inr (by simpa using hb)
         have hedge := (p.cons huv).chordless_of_length_eq_dist hp
-          (by simp) (by simp [hb]) hub
+          (by simp) hbSupport hub
         simpa using hfullPath.eq_snd_of_mem_edges hedge
       have hsupp : (Walk.cons huv p).support.toFinset =
           insert u p.support.toFinset := by simp
@@ -101,7 +104,7 @@ lemma diam_le_two_mul_radius_toNat (hG : G.Connected) :
     G.diam ≤ 2 * G.radius.toNat := by
   have hr : G.radius ≠ ⊤ := radius_ne_top_iff.mpr hG
   have hmul : (2 : ℕ∞) * G.radius ≠ ⊤ :=
-    WithTop.mul_ne_top (ENat.natCast_ne_top 2) hr
+    WithTop.mul_ne_top (ENat.coe_ne_top 2) hr
   have h := ENat.toNat_le_toNat (ediam_le_two_mul_radius (G := G)) hmul
   simpa [diam] using h
 
