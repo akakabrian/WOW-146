@@ -1,0 +1,90 @@
+name: Independent WOWII 146 audit
+
+on:
+  push:
+    branches:
+      - agent-e-independent-audit-v2
+    paths-ignore:
+      - audit/finite_regression_report.json
+      - audit/source_audit_report.json
+      - audit/lean_audit.log
+  pull_request:
+    branches:
+      - proof/wowii-146
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install independent graph tooling
+        run: python -m pip install --disable-pip-version-check networkx==3.4.2
+
+      - name: Enumerate all connected unlabeled graphs through seven vertices
+        run: python audit/enumerate_graphs.py --json audit/finite_regression_report.json
+
+      - name: Audit reachable local Lean sources
+        run: python audit/source_audit.py
+
+      - name: Install elan
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Resolve dependencies
+        run: lake update
+
+      - name: Restore Formal Conjectures build cache
+        uses: actions/cache@v4
+        with:
+          path: .lake/packages/formal_conjectures/.lake/build
+          key: wow146-audit-formal-build-${{ hashFiles('lean-toolchain', 'lakefile.toml') }}
+
+      - name: Download Mathlib cache
+        run: lake exe cache get
+
+      - name: Kernel, signature, warning, and full-build audit
+        shell: bash
+        run: |
+          set -o pipefail
+          {
+            echo '$ lake build WOW146.Audit'
+            lake build WOW146.Audit
+            echo '$ lake env lean -DwarningAsError=true WOW146/Audit.lean'
+            lake env lean -DwarningAsError=true WOW146/Audit.lean
+            echo '$ lake env lean -DwarningAsError=true WOW146.lean'
+            lake env lean -DwarningAsError=true WOW146.lean
+            echo '$ lake --wfail build'
+            lake --wfail build
+          } 2>&1 | tee audit/lean_audit.log
+
+      - name: Upload audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: independent-audit-${{ github.run_id }}
+          path: |
+            audit/finite_regression_report.json
+            audit/source_audit_report.json
+            audit/lean_audit.log
+
+      - name: Publish audit reports on branch pushes
+        if: github.event_name == 'push' && success()
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -f audit/finite_regression_report.json audit/source_audit_report.json audit/lean_audit.log
+          git commit -m "audit: publish independent verification reports" || true
+          git push origin HEAD:${GITHUB_REF_NAME}

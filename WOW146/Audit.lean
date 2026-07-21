@@ -14,33 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import WOW146.Reduction
-import WOW146.ExceptionalTheorem
+import WOW146
 
 /-!
-# Written on the Wall II — Conjecture 146
+# Independent audit surface for WOWII Conjecture 146
 
-This module proves a theorem with the exact hypotheses and conclusion of the
-current Formal Conjectures declaration. The proof combines the general
-arithmetic reduction with the kernel-checked exceptional induced-tree theorem.
+This module does not contribute to the proof. It restates the current upstream
+signature verbatim and asks the kernel for the axioms of the final theorem and
+the exceptional regression witness.
 -/
 
 open Classical
 open SimpleGraph
 open WrittenOnTheWallII.GraphConjecture146
 
-namespace WOW146
+namespace WOW146.Audit
 
 variable {α : Type*} [Fintype α] [DecidableEq α] [Nontrivial α]
 
-/-- Written on the Wall II, Conjecture 146, with the exact upstream signature. -/
-theorem conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj]
-    (h : G.Connected) (hrad : 0 < graphSquareRadius G) :
-    2 * eccSet G (maxEccentricityVertices G : Set α) ≤
-      largestInducedTreeSize G * graphSquareRadius G := by
-  exact conjecture146_of_exceptional_case G h hrad (exceptional_case G h)
-
-/-- Compilation guard that restates the upstream declaration verbatim. -/
 example (G : SimpleGraph α) [DecidableRel G.Adj]
     (h : G.Connected) (hrad : 0 < graphSquareRadius G) :
     2 * eccSet G (maxEccentricityVertices G : Set α) ≤
@@ -50,5 +41,7 @@ example (G : SimpleGraph α) [DecidableRel G.Adj]
 #check WrittenOnTheWallII.GraphConjecture146.conjecture146
 #check WOW146.conjecture146
 #print axioms WOW146.conjecture146
+#print axioms WOW146.exceptional_case
+#print axioms WOW146.Regression.reg_exceptional
 
-end WOW146
+end WOW146.Audit
