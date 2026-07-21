@@ -66,11 +66,11 @@ theorem exceptional_six_vertex_induced_tree
       3 = G.distToSet z B := hzSet.symm
       _ ≤ G.dist z y := distToSet_le_dist_of_mem_public (G := G) z hyB
   have hzxUpper : G.dist z x ≤ 4 := by
-    have := dist_le_diam (G := G) (u := z) (v := x) hfinite
-    simpa [hd] using this
+    have h := dist_le_diam (G := G) (u := z) (v := x) hfinite
+    simpa [hd] using h
   have hzyUpper : G.dist z y ≤ 4 := by
-    have := dist_le_diam (G := G) (u := z) (v := y) hfinite
-    simpa [hd] using this
+    have h := dist_le_diam (G := G) (u := z) (v := y) hfinite
+    simpa [hd] using h
   have hzxNeFour : G.dist z x ≠ 4 := by
     intro hfour
     have hdiam : G.dist z x = G.diam := hfour.trans hd.symm
@@ -83,25 +83,29 @@ theorem exceptional_six_vertex_induced_tree
     exact hzNotB (by simpa [B] using hzB₀)
   have hzx : G.dist z x = 3 := by omega
   have hzy : G.dist z y = 3 := by omega
+  have hxz : G.dist x z = 3 := by
+    rw [G.dist_comm]
+    exact hzx
   obtain ⟨c, hc⟩ := exists_square_center_original_dist_le_two G hG hrho
-  have hxcLe : G.dist x c ≤ 2 := by simpa [dist_comm] using hc x
+  have hcxLe : G.dist c x ≤ 2 := hc x
+  have hxcLe : G.dist x c ≤ 2 := by
+    rw [G.dist_comm]
+    exact hcxLe
   have hcyLe : G.dist c y ≤ 2 := hc y
-  have hxyTri := hG.dist_triangle (u := x) (v := c) (w := y)
+  have hxyTri : G.dist x y ≤ G.dist x c + G.dist c y := hG.dist_triangle
+  have hxc : G.dist x c = 2 := by omega
   have hcx : G.dist c x = 2 := by
-    have hcxLe := hc x
-    omega
+    rw [G.dist_comm]
+    exact hxc
   have hcy : G.dist c y = 2 := by omega
   have hczLe : G.dist c z ≤ 2 := hc z
   have hczNe : c ≠ z := by
     intro h
     subst z
-    have := hc x
-    rw [dist_comm] at hzx
     omega
   have hczPos : 0 < G.dist c z := hG.pos_dist_of_ne hczNe
   have hczCases : G.dist c z = 1 ∨ G.dist c z = 2 := by omega
-  obtain ⟨u, hxu, huc⟩ :=
-    exists_middle_of_dist_eq_two G hG (by simpa [dist_comm] using hcx)
+  obtain ⟨u, hxu, huc⟩ := exists_middle_of_dist_eq_two G hG hxc
   obtain ⟨v, hcv, hvy⟩ := exists_middle_of_dist_eq_two G hG hcy
   rcases hczCases with hczOne | hczTwo
   · have hzc : G.Adj z c := (dist_eq_one_iff_adj.mp hczOne).symm
@@ -118,7 +122,7 @@ theorem exceptional_six_vertex_induced_tree
     have hzxNe : z ≠ x := by
       intro h
       subst x
-      simpa using hzx
+      simp at hzx
     have hzuNe : z ≠ u := by
       intro h
       subst u
@@ -131,12 +135,12 @@ theorem exceptional_six_vertex_induced_tree
     have hzyNe : z ≠ y := by
       intro h
       subst y
-      simpa using hzy
+      simp at hzy
     let p : G.Walk x y := .cons hxu (.cons huc (.cons hcv (.cons hvy .nil)))
     have hpGeo : p.length = G.dist x y := by simp [p, hxy]
     have hpFour : p.length = 4 := by simp [p]
-    apply p.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf hpGeo hpFour
-      (c := c) (z := z)
+    apply WOW146.Walk.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf
+      p hpGeo hpFour (c := c) (z := z)
     · simp [p]
     · simp [p, hzxNe, hzuNe, hzcNe, hzvNe, hzyNe]
     · exact hzc
@@ -148,16 +152,21 @@ theorem exceptional_six_vertex_induced_tree
       · rfl
       · exact (hnzv hzq).elim
       · exact (hnzy hzq).elim
-  · obtain ⟨w, hzw, hwc⟩ :=
-      exists_middle_of_dist_eq_two G hG (by simpa [dist_comm] using hczTwo)
+  · have hzcTwo : G.dist z c = 2 := by
+      rw [G.dist_comm]
+      exact hczTwo
+    obtain ⟨w, hzw, hwc⟩ := exists_middle_of_dist_eq_two G hG hzcTwo
     by_cases huw : G.Adj u w
-    · exact six_le_largestInducedTreeSize_of_cross_arm hG hxy
-        (by simpa [dist_comm] using hzx) hzy hxu huw hzw.symm
+    · exact six_le_largestInducedTreeSize_of_cross_arm hG hxy hxz hzy
+        hxu huw hzw.symm
     · by_cases hvw : G.Adj v w
-      · exact six_le_largestInducedTreeSize_of_cross_arm hG
-          (by simpa [dist_comm] using hxy)
-          (by simpa [dist_comm] using hzy)
-          (by simpa [dist_comm] using hzx)
+      · have hyx : G.dist y x = 4 := by
+          rw [G.dist_comm]
+          exact hxy
+        have hyz : G.dist y z = 3 := by
+          rw [G.dist_comm]
+          exact hzy
+        exact six_le_largestInducedTreeSize_of_cross_arm hG hyx hyz hzx
           hvy.symm hvw hzw.symm
       · have hnwx : ¬G.Adj w x := by
           intro hwx
@@ -189,8 +198,8 @@ theorem exceptional_six_vertex_induced_tree
         let p : G.Walk x y := .cons hxu (.cons huc (.cons hcv (.cons hvy .nil)))
         have hpGeo : p.length = G.dist x y := by simp [p, hxy]
         have hpFour : p.length = 4 := by simp [p]
-        apply p.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf hpGeo hpFour
-          (c := c) (z := w)
+        apply WOW146.Walk.six_le_largestInducedTreeSize_of_geodesic_four_add_unique_leaf
+          p hpGeo hpFour (c := c) (z := w)
         · simp [p]
         · simp [p, hwxNe, hwuNe, hwcNe, hwvNe, hwyNe]
         · exact hwc
@@ -211,7 +220,9 @@ theorem exceptional_case
     (hp : eccSet G (maxEccentricityVertices G : Set α) = 3) :
     6 ≤ largestInducedTreeSize G := by
   have hrho : graphSquareRadius G = 1 := by
-    rw [graphSquareRadius_eq hG, hr]
+    calc
+      graphSquareRadius G = (G.radius.toNat + 1) / 2 := graphSquareRadius_eq hG
+      _ = 1 := by omega
   exact exceptional_six_vertex_induced_tree G hG hrho hd hp
 
 #print axioms WOW146.exceptional_six_vertex_induced_tree
