@@ -1,0 +1,116 @@
+name: Verify Formal Conjectures upstream port
+
+on:
+  push:
+    branches:
+      - upstream-port-formal-conjectures
+    paths-ignore:
+      - upstream/formal-conjectures.patch
+      - upstream/upstream-build.log
+      - upstream/upstream-port-manifest.txt
+  pull_request:
+    branches:
+      - proof/wowii-146
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  upstream-port:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out verified standalone proof
+        uses: actions/checkout@v4
+        with:
+          path: wow146
+          fetch-depth: 0
+
+      - name: Install elan
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Check out current Formal Conjectures upstream
+        run: |
+          git clone https://github.com/AlperTheKing/formal-conjectures.git formal-conjectures
+          cd formal-conjectures
+          git checkout b8b5208aa5d01f5f91c49ca516bf09cae8d93693
+
+      - name: Generate the upstream-native port
+        run: |
+          python wow146/upstream/port_to_formal_conjectures.py \
+            --source wow146 \
+            --upstream formal-conjectures \
+            --patch wow146/upstream/formal-conjectures.patch
+          git -C formal-conjectures diff --check
+          {
+            echo 'upstream_repository=AlperTheKing/formal-conjectures'
+            echo 'upstream_base=b8b5208aa5d01f5f91c49ca516bf09cae8d93693'
+            echo "standalone_source=$(git -C wow146 rev-parse HEAD)"
+            echo 'w142_prerequisite_commit=46bf39015f5c3c3ba3bfcf9f752b4b1e49b584ac'
+            echo 'w142_prerequisite_path=FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture142Proof.lean'
+            echo 'proof_namespace=WrittenOnTheWallII.GraphConjecture146.Proof'
+            echo 'target=FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean'
+          } > wow146/upstream/upstream-port-manifest.txt
+
+      - name: Resolve upstream dependencies
+        working-directory: formal-conjectures
+        run: lake update
+
+      - name: Restore upstream build cache
+        uses: actions/cache@v4
+        with:
+          path: formal-conjectures/.lake
+          key: wow146-upstream-${{ hashFiles('formal-conjectures/lean-toolchain', 'formal-conjectures/lakefile.toml', 'wow146/upstream/port_to_formal_conjectures.py') }}
+
+      - name: Download Mathlib cache
+        working-directory: formal-conjectures
+        run: lake exe cache get
+
+      - name: Build and audit the port inside Formal Conjectures
+        shell: bash
+        run: |
+          set -o pipefail
+          cd formal-conjectures
+          {
+            echo '$ lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.GraphConjecture146Proof'
+            lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.GraphConjecture146Proof
+            echo '$ lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Regression'
+            lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Regression
+            echo '$ lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146'
+            lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146
+            echo '$ lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Audit'
+            lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Audit
+            echo '$ lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/GraphConjecture146Proof.lean'
+            lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/GraphConjecture146Proof.lean
+            echo '$ lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Regression.lean'
+            lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Regression.lean
+            echo '$ lake env lean -DwarningAsError=true FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean'
+            lake env lean -DwarningAsError=true FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean
+            echo '$ lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Audit.lean'
+            lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Audit.lean
+            echo '$ lake --wfail build'
+            lake --wfail build
+          } 2>&1 | tee ../wow146/upstream/upstream-build.log
+
+      - name: Upload upstream port evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: formal-conjectures-port-${{ github.run_id }}
+          path: |
+            wow146/upstream/formal-conjectures.patch
+            wow146/upstream/upstream-build.log
+            wow146/upstream/upstream-port-manifest.txt
+
+      - name: Publish verified port artifacts
+        if: github.event_name == 'push' && success()
+        working-directory: wow146
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -f upstream/formal-conjectures.patch upstream/upstream-build.log upstream/upstream-port-manifest.txt
+          git commit -m "upstream: publish verified Formal Conjectures port" || true
+          git push origin HEAD:${GITHUB_REF_NAME}
