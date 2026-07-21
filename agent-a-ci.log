@@ -1,0 +1,47 @@
+$ lake build WOW146.GraphSquareMetric
+✔ [1767/1768] Built FormalConjecturesForMathlib.Combinatorics.SimpleGraph.VertexDistance (2.4s)
+✖ [1768/1768] Building WOW146.GraphSquareMetric (2.1s)
+trace: .> LEAN_PATH=/home/runner/work/WOW-146/WOW-146/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/packages/formal_conjectures/.lake/build/lib/lean:/home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/bin/lean /home/runner/work/WOW-146/WOW-146/WOW146/GraphSquareMetric.lean -o /home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean/WOW146/GraphSquareMetric.olean -i /home/runner/work/WOW-146/WOW-146/.lake/build/lib/lean/WOW146/GraphSquareMetric.ilean -c /home/runner/work/WOW-146/WOW-146/.lake/build/ir/WOW146/GraphSquareMetric.c --setup /home/runner/work/WOW-146/WOW-146/.lake/build/ir/WOW146/GraphSquareMetric.setup.json --json
+warning: WOW146/GraphSquareMetric.lean:40:0: automatically included section variable(s) unused in theorem `SimpleGraph.adj_graphSquare_of_adj`:
+  [Fintype α]
+  [DecidableEq α]
+  [Nontrivial α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] [Nontrivial α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: WOW146/GraphSquareMetric.lean:50:8: automatically included section variable(s) unused in theorem `_private.WOW146.GraphSquareMetric.0.SimpleGraph.dist_le_two_mul_length_of_graphSquare_walk`:
+  [Fintype α]
+  [DecidableEq α]
+  [Nontrivial α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] [Nontrivial α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: WOW146/GraphSquareMetric.lean:85:46: Unknown identifier `x`
+info: WOW146/GraphSquareMetric.lean:120:0: 'SimpleGraph.graphSquare_dist' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- WOW146.GraphSquareMetric
+error: build failed
+$ lake env lean -DwarningAsError=true WOW146/GraphSquareMetric.lean
+WOW146/GraphSquareMetric.lean:40:0: error: automatically included section variable(s) unused in theorem `SimpleGraph.adj_graphSquare_of_adj`:
+  [Fintype α]
+  [DecidableEq α]
+  [Nontrivial α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] [Nontrivial α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+WOW146/GraphSquareMetric.lean:50:8: error: automatically included section variable(s) unused in theorem `_private.WOW146.GraphSquareMetric.0.SimpleGraph.dist_le_two_mul_length_of_graphSquare_walk`:
+  [Fintype α]
+  [DecidableEq α]
+  [Nontrivial α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] [Nontrivial α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+WOW146/GraphSquareMetric.lean:85:46: error(lean.unknownIdentifier): Unknown identifier `x`
+'SimpleGraph.graphSquare_dist' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+EXIT_STATUS=1
