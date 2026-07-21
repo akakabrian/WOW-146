@@ -2,17 +2,25 @@
 
 ## Status
 
-The metric identity, square-radius formula, global bounds, exceptional induced-tree theorem, exact top-level theorem, and independent verification are complete in this repository.
+The proof, independent audit, upstream-native port, and complete upstream repository build verification are finished.
 
 Immutable proof commit:
 
 - `0b750ac1ac987d7085fff796b4ea91a0cf4ecd70`
-- https://github.com/akakabrian/WOW-146/commit/0b750ac1ac987d7085fff796b4ea91a0cf4ecd70
 
-Independent audit merge commit:
+Independent audit merge:
 
 - `bdb4a9d685dd90b2ac87787df5e29de52c50eda6`
-- https://github.com/akakabrian/WOW-146/commit/bdb4a9d685dd90b2ac87787df5e29de52c50eda6
+
+Verified upstream-port merge:
+
+- `4cfddef9f3a3185b1995077968df6fe09f47b6fb`
+
+The upstream port was generated and compiled in a pristine checkout of `AlperTheKing/formal-conjectures` at:
+
+```text
+b8b5208aa5d01f5f91c49ca516bf09cae8d93693
+```
 
 The audit checked the kernel signature and axioms, scanned all reachable local proof sources, reviewed every `ENat.toNat` conversion and exceptional induced-tree branch, and exhaustively tested all 995 connected unlabeled graphs with two through seven vertices. All 13 exceptional graphs passed.
 
@@ -55,19 +63,63 @@ theorem WOW146.conjecture146 (G : SimpleGraph α) [DecidableRel G.Adj]
       largestInducedTreeSize G * graphSquareRadius G
 ```
 
-Its proof is:
+## Verified upstream form
 
-```lean
-by
-  exact WOW146.conjecture146_of_exceptional_case G h hrad
-    (WOW146.exceptional_case G h)
+The upstream porter places the raw proof in:
+
+```text
+WrittenOnTheWallII.GraphConjecture146.Proof
 ```
 
-## Upstream target-file change
+It removes the statement/proof import cycle by proving the equivalent raw form using `(graphSquare G).radius.toNat`. The target theorem unfolds its local `graphSquareRadius` abbreviation and applies:
 
-The submission bundle under `upstream/` contains the target-file patch and porting map for the supporting proof modules. After those modules are copied into the upstream tree, the conjecture body becomes a direct application of the ported proof theorem.
+```lean
+Proof.conjecture146 G h hrad
+```
 
-The problem annotation may now change from `research open` to `research solved` in the actual upstream submission. The upstream PR description should link the immutable proof and audit commits above rather than a moving branch URL. The final namespace port must be compiled in the upstream repository before submission.
+The target patch also:
+
+- changes `research open` to `research solved`;
+- adds `formal_proof using lean4` with the immutable proof link;
+- adds the proof and regression modules to `FormalConjecturesForMathlib.lean`;
+- carries the required W142 support module from verified commit `46bf39015f5c3c3ba3bfcf9f752b4b1e49b584ac`;
+- follows the repository's public-module conventions.
+
+## Upstream verification
+
+The following commands passed inside the actual upstream checkout:
+
+```text
+lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.GraphConjecture146Proof
+lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Regression
+lake build FormalConjectures.WrittenOnTheWallII.GraphConjecture146
+lake build FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture146.Audit
+lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/GraphConjecture146Proof.lean
+lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Regression.lean
+lake env lean -DwarningAsError=true FormalConjectures/WrittenOnTheWallII/GraphConjecture146.lean
+lake env lean -DwarningAsError=true FormalConjecturesForMathlib/WrittenOnTheWallII/GraphConjecture146/Audit.lean
+lake --wfail build
+```
+
+The full upstream build completed successfully with 8,884 jobs. The exact patched theorem, raw proof theorem, exceptional theorem, and regression depend only on:
+
+```text
+propext
+Classical.choice
+Quot.sound
+```
+
+Verified workflow run: `29822594177`.
+
+## Submission bundle
+
+- `upstream/formal-conjectures.patch` — complete full-index patch;
+- `upstream/upstream-build.log` — complete build and axiom log;
+- `upstream/upstream-port-manifest.txt` — provenance manifest;
+- `upstream/port_to_formal_conjectures.py` — reproducible porter;
+- `.github/workflows/upstream-port.yml` — repeatable verification workflow.
+
+The connected GitHub account does not have push access to the upstream repository. The only remaining administrative action is to apply this verified patch to a fork and open the upstream pull request.
 
 ## AI-assistance disclosure
 
@@ -83,13 +135,13 @@ Suggested disclosure:
 
 ## Verification checklist
 
-- [x] Issue #4 exceptional theorem merged.
 - [x] Exact theorem signature unchanged.
-- [x] No `sorry`, `admit`, `native_decide`, or project-specific axiom in the local proof.
-- [x] `lake env lean -DwarningAsError=true WOW146.lean` passes.
-- [x] `lake --wfail build` passes.
-- [x] `#print axioms` contains only standard Lean axioms.
-- [x] Immutable proof commit recorded.
-- [x] Independent audit issue #6 completed.
+- [x] No `sorry`, `admit`, `native_decide`, or project-specific axiom in the proof.
+- [x] Standalone warning-as-error and full builds pass.
+- [x] Standard-axiom audit passes.
+- [x] Independent audit completed.
 - [x] Connected unlabeled graphs through seven vertices exhaustively tested.
-- [x] Upstream target patch and AI-assistance disclosure prepared.
+- [x] Upstream-native namespace port completed.
+- [x] Exact upstream target compiled with warnings as errors.
+- [x] Full upstream `lake --wfail build` completed.
+- [x] Complete patch, build log, manifest, and disclosure prepared.
