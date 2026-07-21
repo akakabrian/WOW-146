@@ -100,13 +100,15 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
     rw [hxz, hwzDist] at htri
     omega
   have hxw : G.dist x w = 2 := by omega
+  have hzx : G.dist z x = 3 := by
+    rw [G.dist_comm]
+    exact hxz
   have hnzx : ¬G.Adj z x := not_adj_of_two_le_dist G (by omega)
   have hnzy : ¬G.Adj z y := not_adj_of_two_le_dist G (by omega)
   have hnxy : ¬G.Adj x y := not_adj_of_two_le_dist G (by omega)
   have hnzu : ¬G.Adj z u := by
     intro hzu
     have hle := dist_le_two_of_adj_adj G hzu hxu.symm
-    have hle' : G.dist x z ≤ 2 := by simpa [dist_comm] using hle
     omega
   have hnwy : ¬G.Adj w y := by
     intro hwy
@@ -119,7 +121,7 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
   have hzxNe : z ≠ x := by
     intro h
     subst x
-    simp at hxz
+    simp at hzx
   have hzuNe : z ≠ u := by
     intro h
     subst u
@@ -175,7 +177,6 @@ lemma six_le_largestInducedTreeSize_of_cross_arm
   · have hnbx : ¬G.Adj b x := by
       intro hbx
       have hle := dist_le_two_of_adj_adj G hzb hbx
-      have hle' : G.dist x z ≤ 2 := by simpa [dist_comm] using hle
       omega
     have hbxNe : b ≠ x := by
       intro h
