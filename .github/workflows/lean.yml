@@ -54,6 +54,8 @@ jobs:
             lake build \
               FormalConjectures.WrittenOnTheWallII.GraphConjecture146 \
               FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
+            echo '$ lake build WOW146.GraphConjecture146Proof'
+            lake build WOW146.GraphConjecture146Proof
             echo '$ lake env lean -DwarningAsError=true WOW146.lean'
             lake env lean -DwarningAsError=true WOW146.lean
             echo '$ lake --wfail build'
@@ -64,13 +66,21 @@ jobs:
           printf '\nEXIT_STATUS=%s\n' "$status" >> lean-ci.log
           exit 0
 
-      - name: Publish compiler log
+      - name: Upload compiler log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-ci-log-${{ github.run_id }}
+          path: lean-ci.log
+
+      - name: Publish compiler log on branch pushes
+        if: github.event_name == 'push'
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -f lean-ci.log
           git commit -m "ci: publish Lean compiler log" || true
-          git push origin HEAD:${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}
+          git push origin HEAD:${GITHUB_REF_NAME}
 
       - name: Fail job when Lean failed
         if: steps.verify.outputs.exit_status != '0'
