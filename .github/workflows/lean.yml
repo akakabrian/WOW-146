@@ -55,6 +55,10 @@ jobs:
               FormalConjecturesForMathlib.WrittenOnTheWallII.GraphConjecture142Proof
             echo '$ lake build WOW146.GraphConjecture146Proof'
             lake build WOW146.GraphConjecture146Proof
+            echo '$ lake build WOW146.WOW59Counterexample'
+            lake build WOW146.WOW59Counterexample
+            echo '$ lake env lean -DwarningAsError=true WOW59Check.lean'
+            lake env lean -DwarningAsError=true WOW59Check.lean
             echo '$ lake env lean -DwarningAsError=true WOW146.lean'
             lake env lean -DwarningAsError=true WOW146.lean
             echo '$ lake --wfail build'
