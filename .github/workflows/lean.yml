@@ -1,5 +1,9 @@
 name: Verify WOWII 146
 
+concurrency:
+  group: wow59-kernel-check-${{ github.repository }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
