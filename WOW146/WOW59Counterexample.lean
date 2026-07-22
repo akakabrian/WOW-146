@@ -74,7 +74,7 @@ private lemma counterG_connected : counterG.Connected := by
 
 private lemma counterG_residue : residue counterG = 10 := by
   unfold residue
-  decide +native
+  decide +kernel
 
 private lemma counterG_b_ge : (17 : ℝ) ≤ counterG.b := by
   unfold b
@@ -145,7 +145,7 @@ private lemma large_with_center_has_edge :
     ∀ s : Finset (Fin 18), (17 : Fin 18) ∈ s → 14 ≤ s.card →
       ∃ u ∈ s, ∃ v ∈ s,
         u ≠ v ∧ u ≠ 17 ∧ v ≠ 17 ∧ counterG.Adj u v := by
-  decide +native
+  decide +kernel
 
 private lemma large_without_center_has_quad :
     ∀ s : Finset (Fin 18), (17 : Fin 18) ∉ s → 14 ≤ s.card →
@@ -153,7 +153,7 @@ private lemma large_without_center_has_quad :
         a ≠ b ∧ b ≠ c ∧ c ≠ d ∧ d ≠ a ∧ a ≠ c ∧ b ≠ d ∧
           counterG.Adj a b ∧ counterG.Adj b c ∧
           counterG.Adj c d ∧ counterG.Adj d a := by
-  decide +native
+  decide +kernel
 
 private lemma counterG_forest_le : counterG.largestInducedForestSize ≤ 13 := by
   apply csSup_le
