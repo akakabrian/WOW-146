@@ -1,0 +1,39 @@
+name: Targeted Erdős 242 Lean check
+
+on:
+  push:
+    branches: ["agent-erdos-242-check"]
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "WOW146/ErdosStrausCheck.lean"
+      - "WOW146.lean"
+      - ".github/workflows/erdos-check.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve dependencies
+        run: lake update
+      - name: Download Mathlib cache
+        run: lake exe cache get
+      - name: Compile check module
+        id: compile
+        continue-on-error: true
+        run: lake build WOW146.ErdosStrausCheck > erdos-check.log 2>&1
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: erdos-check-log
+          path: erdos-check.log
+      - name: Fail after diagnostics
+        if: steps.compile.outcome == 'failure'
+        run: exit 1
